@@ -1,0 +1,82 @@
+CSS PRIORITY HIERARCHY
+
+element (1 point)
+.class (10 points)
+#id (100 points)
+
+li            {...}  /* a=0 b=0 c=1 -> specificity =   1 */
+ul li         {...}  /* a=0 b=0 c=2 -> specificity =   2 */
+ul ol li      {...}  /* a=0 b=0 c=3 -> specificity =   3 */
+li.red        {...}  /* a=0 b=1 c=1 -> specificity =  11 */
+ul ol li.red  {...}  /* a=0 b=1 c=3 -> specificity =  13 */
+#list         {...}  /* a=1 b=0 c=0 -> specificity = 100 */
+
+a represents the number of #id attributes in the selector
+b represents the number of class attributes
+c represents the number of tag names
+
+
+
+
+
+SIZING
+
+Static - px/pt
+Responsive - %/em
+1em - 100%, so you can use em for bigger stuff and % for smaller stuff.
+
+
+
+WIDTH / HEIGHT
+
+Be careful when setting your height property as this will determine how much content the element can hold. If you leave it unset, your element will expand to fit the content it holds. If you set it and you have more content than can be displayed then you will need to either manually adjust the height each time you change the content or utilize the overflow property
+
+
+
+OVERFLOW
+
+This property determines what should happen when the content inside of a container is too much for the container size. You can set the container to hide the additional information that does not fit, show the information no matter what, or have a scroll bar added to the element so the content is contained but still viewable.
+
+
+
+DIRECTIONAL SHORTHAND
+Order goes clockwise: top right bottom left.
+
+padding: 10px 35px 20px;
+          top horiz bottom 
+
+margin: 30px 20px
+	vert horiz
+
+
+
+BOX MODEL
+
+the total width of an element is:
+(Margin x 2) + (Border x 2) + (Padding x 2) + Content Width
+
+Calculating the height is trickier. Why? Because vertical margins collapse. When the vertical margins of two elements are touching, only the margin of the element with the largest margin value will be honored, while the margin of the element with the smaller margin value will be collapsed to zero.
+
+There are other situations where elements do not have their margins collapsed:
+
+floated elements
+absolutely positioned elements
+inline-block elements
+elements with overflow property set to anything other than visible (They do not collapse margins with their children.)
+cleared elements (They do not collapse their top margins with their parent block’s bottom margin.)
+
+
+
+ABSOLUTE POSITION
+An absolutely positioned element is positioned relative to the first parent element that has a position other than static applied to it. If no parent element up the chain meets that condition the absolutely positioned element is positioned relative to the document window.
+
+
+
+
+
+
+border-radius : gives rounded corners.
+
+background and border can be used to modify all properties on one line.
+
+https://www.webdesignerdepot.com/2013/08/10-css-selectors-you-shouldnt-code-without/

@@ -1,0 +1,58 @@
+git init - initialize the repository.
+
+git add . - add all the files that were changed since the last back up to the staging area.
+
+git status - shows you all the files that were changed since the last backup and which ones are already added to the staging area.
+
+git commit -m "..." - commits the changes to the repository.
+
+git checkout ____ - switches to the branch name provided in your git repository. This will create a new branch if the name provided doesn't exist.
+
+git branch - shows all of your git branches and marks the one you are currently on.
+
+git log - shows all the backups created in the repository.
+
+git blame ____ - shows who wrote which line of code or in other words who is to be blamed for that particular line of code.
+
+git remote add origin ____ - tells git to add a remote place called 'origin' to a remote URL ___. This is used to link your repo with the GitHub repo. I think.
+
+git push - pushes the changes in your local repository to the remote repository.
+
+git pull - pulls the changes in a remote repository to your own local repository.
+
+git clone ___ - clones a remote repository in ___ to your own local folder.
+
+git diff - shows you line by line the differences between the latest copy and the last backup you created
+
+git diff --stat ____ - shows statistics about the changes that have been made since commit "_____"
+
+
+
+REVERT
+
+The simplest way to revert an existing commit is the git revert command. It “reverts” a commit by creating a new commit in your repository that reverses all the changes made by the original commit.
+
+Normally Git commits the reversal immediately, but you can add the -n parameter to tell Git not to commit. This is useful when you need to revert multiple commits. Just run multiple git revert commands with the -n parameter, and Git stages all the changes and waits for you to commit them.
+
+You must provide it with a commit name so it knows what to revert. For example, if you want to revert the commit 540ecb7 and HEAD, use the following.  Always revert backward—the most recent first. That makes sure you don’t have any unnecessary conflicts to work through when reverting multiple commits.
+
+git revert -n HEAD
+Finished one revert.
+git revert -n 540ecb7 
+Removed copy.txt 
+Finished one revert.
+git commit -m "revert 45eaf98 and 540ecb7"
+Created commit 2b3c1de: revert 45eaf98 and 540ecb7
+2 files changed, 0 insertions(+), 10 deletions(-)
+delete mode 100644 copy.txt
+
+
+
+git reset <commit hash> <filename> --hard : resets the latest commit? Completely unrecoverable, utterly destroyed changes
+
+
+
+You can add as many remote repositories as you want by using git remote add <remote name>
+You can also delete remote repository that you've added by using git remote remove <remote name>
+To list all the remote repositories you are connected to, run git remote
+To see more information about a remote repository, use git remote show <remote name>

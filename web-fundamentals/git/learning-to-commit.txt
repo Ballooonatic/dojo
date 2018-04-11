@@ -1,0 +1,126 @@
+Michaels-MBP:~ michaelimgrund$ cd Desktop/
+Michaels-MBP:Desktop michaelimgrund$ mkdir gittest
+Michaels-MBP:Desktop michaelimgrund$ cd gittest/
+Michaels-MBP:gittest michaelimgrund$ git init
+Initialized empty Git repository in /Users/michaelimgrund/Desktop/gittest/.git/
+Michaels-MBP:gittest michaelimgrund$ touch index.html styles.css aboutMe.txt
+Michaels-MBP:gittest michaelimgrund$ git add .
+Michaels-MBP:gittest michaelimgrund$ git commit -m "first commit. added index.html, styles.css and aboutMe.txt"
+[master (root-commit) 4b63d0d] first commit. added index.html, styles.css and aboutMe.txt
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 aboutMe.txt
+ create mode 100644 index.html
+ create mode 100644 styles.css
+Michaels-MBP:gittest michaelimgrund$ open aboutMe.txt 
+Michaels-MBP:gittest michaelimgrund$ git add .
+Michaels-MBP:gittest michaelimgrund$ git commit -m "added a self-description in the about me text file"
+[master 2cc55d7] added a self-description in the about me text file
+ 1 file changed, 1 insertion(+)
+Michaels-MBP:gittest michaelimgrund$ git log
+commit 2cc55d770f1312bc5758b7881353fd81c72b675b (HEAD -> master)
+Author: Michael Imgrund <michael.imgrund@gmail.com>
+Date:   Thu Apr 5 12:13:50 2018 -0400
+
+    added a self-description in the about me text file
+
+commit 4b63d0d2ea077a74d920118d40516f7d5d61e8bc
+Author: Michael Imgrund <michael.imgrund@gmail.com>
+Date:   Thu Apr 5 12:11:57 2018 -0400
+
+    first commit. added index.html, styles.css and aboutMe.txt
+Michaels-MBP:gittest michaelimgrund$ open aboutMe.txt 
+Michaels-MBP:gittest michaelimgrund$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   aboutMe.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Michaels-MBP:gittest michaelimgrund$ git add .
+Michaels-MBP:gittest michaelimgrund$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   aboutMe.txt
+
+Michaels-MBP:gittest michaelimgrund$ git commit -m "adde my favorite movie to aboutMe.txt"
+[master c372e64] adde my favorite movie to aboutMe.txt
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+Michaels-MBP:gittest michaelimgrund$ 
+Display all 1376 possibilities? (y or n)
+Michaels-MBP:gittest michaelimgrund$ git log
+commit c372e648d192f7bc9dae017ee136ab159b9477ca (HEAD -> master)
+Author: Michael Imgrund <michael.imgrund@gmail.com>
+Date:   Thu Apr 5 12:16:26 2018 -0400
+
+    adde my favorite movie to aboutMe.txt
+
+commit 2cc55d770f1312bc5758b7881353fd81c72b675b
+Author: Michael Imgrund <michael.imgrund@gmail.com>
+Date:   Thu Apr 5 12:13:50 2018 -0400
+
+    added a self-description in the about me text file
+
+commit 4b63d0d2ea077a74d920118d40516f7d5d61e8bc
+Author: Michael Imgrund <michael.imgrund@gmail.com>
+Date:   Thu Apr 5 12:11:57 2018 -0400
+
+    first commit. added index.html, styles.css and aboutMe.txt
+Michaels-MBP:gittest michaelimgrund$ git revert 4b63d0d
+error: could not revert 4b63d0d... first commit. added index.html, styles.css and aboutMe.txt
+hint: after resolving the conflicts, mark the corrected paths
+hint: with 'git add <paths>' or 'git rm <paths>'
+hint: and commit the result with 'git commit'
+Michaels-MBP:gittest michaelimgrund$ git revert c3
+fatal: bad revision 'c3'
+Michaels-MBP:gittest michaelimgrund$ git revert c372e
+error: Reverting is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: revert failed
+Michaels-MBP:gittest michaelimgrund$ git status
+On branch master
+You are currently reverting commit 4b63d0d.
+  (fix conflicts and run "git revert --continue")
+  (use "git revert --abort" to cancel the revert operation)
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	deleted:    index.html
+	deleted:    styles.css
+
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add/rm <file>..." as appropriate to mark resolution)
+
+	deleted by them: aboutMe.txt
+
+Michaels-MBP:gittest michaelimgrund$ git revert --abort
+Michaels-MBP:gittest michaelimgrund$ git status
+On branch master
+nothing to commit, working tree clean
+Michaels-MBP:gittest michaelimgrund$ ls
+aboutMe.txt	index.html	styles.css
+Michaels-MBP:gittest michaelimgrund$ git revert c372e
+[master e64ea4b] Revert "adde my favorite movie to aboutMe.txt" meant to add my favorite book. This reverts commit c372e648d192f7bc9dae017ee136ab159b9477ca.
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+Michaels-MBP:gittest michaelimgrund$ ls
+aboutMe.txt	index.html	styles.css
+Michaels-MBP:gittest michaelimgrund$ open aboutMe.txt 
+Michaels-MBP:gittest michaelimgrund$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   aboutMe.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Michaels-MBP:gittest michaelimgrund$ git add .
+Michaels-MBP:gittest michaelimgrund$ git commit -m "now aboutMe.txt has my favorite book."
+[master 9546cc3] now aboutMe.txt has my favorite book.
+ 1 file changed, 3 insertions(+), 1 deletion(-)

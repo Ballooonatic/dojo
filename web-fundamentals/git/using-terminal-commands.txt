@@ -1,0 +1,14 @@
+Michaels-MBP:dojo michaelimgrund$ cd ..
+Michaels-MBP:Desktop michaelimgrund$ mkdir test
+Michaels-MBP:Desktop michaelimgrund$ cd test
+Michaels-MBP:test michaelimgrund$ touch index.html styles.css commands.txt
+Michaels-MBP:test michaelimgrund$ cp index.html index_2.html
+Michaels-MBP:test michaelimgrund$ rm styles.css
+Michaels-MBP:test michaelimgrund$ cd ..
+Michaels-MBP:Desktop michaelimgrund$ mkdir destination
+Michaels-MBP:Desktop michaelimgrund$ mv test/index_2.html destination/index_2.html
+Michaels-MBP:Desktop michaelimgrund$ ls test
+commands.txt	index.html
+Michaels-MBP:Desktop michaelimgrund$ ls destination/
+index_2.html
+Michaels-MBP:Desktop michaelimgrund$ rm -rf destination/

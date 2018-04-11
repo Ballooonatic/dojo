@@ -1,0 +1,12 @@
+*creates GitHub repo on github.com*
+
+*opens terminal*
+
+cd github-repo-assignment
+git init
+touch readme.md
+git status
+git add .
+git commit -m "added readme.md"
+git remote add origin <repo URL here>
+git push origin master

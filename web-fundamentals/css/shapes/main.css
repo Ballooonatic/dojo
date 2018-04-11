@@ -1,0 +1,35 @@
+div {
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+}
+
+h1 {
+    font-family: monospace;
+}
+
+#circle {
+    border-radius: 50%;
+}
+
+#triangle {
+    background-color: transparent;
+    height: 0;
+    width: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+    border-bottom: 100px solid blue;
+}
+
+#pacman {
+    background-color: transparent;
+    height: 0;
+    width: 0;
+    border-right: 50px solid transparent;
+
+    border-top: 50px solid blue;
+    border-left: 50px solid blue;
+    border-bottom: 50px solid blue;
+
+    border-radius: 50%;
+}

@@ -1,0 +1,50 @@
+* {
+    font-family: Helvetica;
+    font-weight: lighter;
+}
+
+@media only screen and (max-width: 480px) {
+    #desc::after {
+        content: 'Phone: Width ';
+    }
+    .bold::after {
+        content: 'less than or equal to 480px';
+        font-weight: bold;
+    }
+}
+@media only screen and (min-width: 481px) {
+    #desc::after {
+        content: 'Tablet: Width ';
+    }
+    .bold::after {
+        content: 'between 481px and 1023px';
+        font-weight: bold;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    #desc::after {
+        content: 'Desktop: Width ';
+    }
+    .bold::after {
+        content: 'greater than or equal to 1024px';
+        font-weight: bold;
+    }
+}
+
+div {
+    margin: 5px 0;
+    max-width: 1024px;
+    padding: 1px 20px;
+}
+
+.top {
+    background-color: gray;
+}
+
+.mid {
+    background-color: lightgrey;
+}
+
+.btm {
+    background-color: khaki
+}

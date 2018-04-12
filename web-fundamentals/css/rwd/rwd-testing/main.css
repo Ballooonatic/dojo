@@ -1,0 +1,40 @@
+.navbtn {
+    margin: 5px;
+    height: 150px;
+    width: 200px;
+    color: white;
+}
+
+
+
+@media only screen and (max-width: 480px){
+    .navbtn {
+        background-color: yellow;
+    }
+}
+@media only screen and (min-width: 481px){
+    .navbtn {
+        background-color: blue;
+    }
+    .navbtn:nth-of-type(3) {
+        display: block;
+    }
+    .navbtn:nth-of-type(4) {
+        position: absolute;
+        top: 168px;
+        left: 222px;
+    }
+}
+@media only screen and (min-width: 1024px){
+    .navbtn {
+        background-color: red;
+    }
+    .navbtn:nth-of-type(3) {
+        display: inline-block;
+    }
+    .navbtn:nth-of-type(4) {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}

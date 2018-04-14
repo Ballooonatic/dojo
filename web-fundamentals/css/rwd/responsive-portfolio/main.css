@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+    width: 100%;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+
+button {
+    background-color: rgb(45, 119, 45);
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    margin: 1% 40%;
+    height: 25px;
+    width: max-content;
+    box-shadow: 3px 3px 4px grey;
+}
+
+h1 {font-family: 'Comic Sans MS'}
+
+h3:not(#subtitle) {
+    background: linear-gradient(lightgray, gray, lightgray);
+    color: white;
+    padding: 10px;
+    margin: 0;
+}
+
+img {max-width: 100%;}
+
+p {
+    font-weight: lighter;
+    margin: 10px;
+}
+
+a {margin: 10px;}
+
+
+
+#subtitle {
+    display: none;
+    text-align: right;
+}
+
+#wrapper {
+    background: radial-gradient(rgb(175, 147, 147), rgb(20, 13, 13));
+    padding: 3%;    
+}
+
+#selfie {
+    border: 5px solid #d8d8d8;
+    padding: 0;
+}
+
+#invis {display: none;}
+
+#card {
+    background: radial-gradient(farthest-side at 80% 60%, #ffdada, white);    
+    padding: 0 0 5px 0;
+    margin: 3% 0 0 0;
+}
+
+#footer > * {
+    font-size: 12px;
+    display: block;
+    text-align: center;
+}
+
+#footer > a {
+    color: black;
+    font-style: italic;
+}
+
+
+.icon {
+    width: 41px;
+    height: 40px;
+    margin: 8px;
+}
+.social-media-icon {
+    width: 15px;
+    height: 15px;
+    margin: 1% auto;
+}
+
+
+
+@media only screen and (min-width: 481px) {
+    /* For tablets: */
+    .col-s-1 {width: 8.33%;}
+    .col-s-2 {width: 16.66%;}
+    .col-s-3 {width: 25%;}
+    .col-s-4 {width: 33.33%;}
+    .col-s-5 {width: 41.66%;}
+    .col-s-6 {width: 50%;}
+    .col-s-7 {width: 58.33%;}
+    .col-s-8 {width: 66.66%;}
+    .col-s-9 {width: 75%;}
+    .col-s-10 {width: 83.33%;}
+    .col-s-11 {width: 91.66%;}
+    .col-s-12 {width: 100%;}
+
+    button {margin: 1% 35%}
+    #subtitle {display: initial;}
+    #wrapper {padding: 1%;}
+    #selfie {margin: 10px;}
+
+    #card {
+        margin: 1%;
+        min-height: 315px;
+    }
+
+    #invis {
+        display: initial;
+        max-width: 11%;
+    }
+
+    #footer > * {
+        font-size: 14px;
+        display: inline;
+    }
+
+    #footer > p {
+        display: block;
+        margin: 1% auto;
+    }
+
+    .social-media-icon {
+        width: 20px;
+        height: 20px;
+        margin: 0 0 0 9%;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+
+    .social-media-icon {
+        margin: 0 0 0 14%;
+    }
+}

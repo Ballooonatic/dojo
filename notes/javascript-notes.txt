@@ -1,0 +1,79 @@
+JAVASCRIPT IS AN INTERPRETED LANGUAGE
+
+An interpreted language is a language that is evaluated line-by-line at run-time. This means that there must be an interpreter that can evaluate the code that you write in order for it to work! That's right, every browser has a built in JS interpreter that allows you to run JS code on the client side. One thing to note, however, is that the JavaScript interpreter runs your code in two steps: 
+
+1) it parses through your code and rearranges it to make it easier to run line by line and then 
+2) it actually runs it line by line! 
+
+Understanding these two steps is the key to understanding some of the "weird quirks" of JavaScript. 
+
+
+
+
+
+JAVASCRIPT USES AN EVENT-DRIVEN PROGRAMMING STYLE
+
+I think this means instead of waiting for tasks to complete to continue, it'll listen for the event while getting other things done, and do the thing when it needs to.
+
+
+
+
+
+ARROW FUNCTIONS
+
+The general syntax
+(param1, param2, …, paramN) => { statements }
+
+If there is only one expression you can leave off the {}
+(param1, param2, …, paramN) => expression
+
+If there is no parameters you use only the () and they become compulsory
+() => { statements }
+
+If there is only one parameter then the parenthesis are optional
+singleParam => { statements }
+
+
+
+By default, arrow functions return the result of the expression hence the 'return' keyword is optional — this applies only to single line arrow function.
+
+var multiply = (a, b) => a * b // returns the result
+var multiply = (a, b) => {a * b} // returns undefined
+var multiply = (a, b) => {return a*b} //returns the result
+
+whenever we introduce the {} in the arrow function its considered as a multi line and we have to explicitly return.
+
+
+
+When returning objects, make sure to wrap them in parentheses (the braces are otherwise seen as the beginning/end of the function).
+var myFunction = () => ({ age: 23 })
+
+
+
+Arrow functions also don't create their own "this", so when modifying properties of constructs, you can use it to properly refer to the same object as in the constructor.
+
+function Person(){
+  this.age = 0;
+
+  setInterval(() => {
+    this.age++; // |this| properly refers to the person object
+  }, 1000);
+}
+
+
+
+Don't use arrow functions for:
+	1. Constructors - the 'new' keyword will make them error out
+	2. Prototypes - they do not have prototype properties
+
+
+
+
+
+
+
+
+
+
+
+

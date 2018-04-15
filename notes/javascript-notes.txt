@@ -19,6 +19,15 @@ I think this means instead of waiting for tasks to complete to continue, it'll l
 
 
 
+JS IS LOOSELY TYPED
+
+It's not picky about data types, and will willingly change types if needed. e.g. combining numbers and strings.
+
+
+
+
+
+
 ARROW FUNCTIONS
 
 The general syntax
@@ -65,15 +74,3 @@ function Person(){
 Don't use arrow functions for:
 	1. Constructors - the 'new' keyword will make them error out
 	2. Prototypes - they do not have prototype properties
-
-
-
-
-
-
-
-
-
-
-
-

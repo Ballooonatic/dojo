@@ -5,10 +5,13 @@ function rangePrint(start, end, skip) {
     
     // if skip is negative, we yell at them.
     else if (skip < 0) {console.log("skip can't be negative!");}
+
+    else if (start === end) {console.log(start);}
+
     
     // if they pass no skip value, use 1.
     else if (start !== undefined && end !== undefined && skip === undefined) {
-        if (end > 0) {
+        if (end > start) {
             for (let i = start; i < end; i += 1) { // up
                 console.log(i);
             }
@@ -36,7 +39,7 @@ function rangePrint(start, end, skip) {
     }
     
     // if the endpoint passed is negative, then we increment down.
-    else if (end < 0) {
+    else if (end < start) {
         for (let i = start; i > end; i -= skip) {
             console.log(i);
         }

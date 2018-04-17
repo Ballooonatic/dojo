@@ -27,7 +27,6 @@ It's not picky about data types, and will willingly change types if needed. e.g.
 
 
 
-
 ARROW FUNCTIONS
 
 The general syntax

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JS Intermediate</title>
+    <script>
+
+        function starString(num) {
+        // creates a string, loops up to num adding a star to the string each iteration.
+            var str = "";
+            for (let i = 0; i < num; i++) {
+                str += "*";
+            }
+            return str;
+        }
+
+        let stars = starString(8);
+        // stars = "********"
+
+
+
+        function drawStars(arr) {
+            // Each array element, it will check for number or string.
+            for (let i = 0; i < arr.length; i++) {
+                // For numbers, it starStrings it.
+                if (typeof arr[i] === "number") {
+                    console.log(starString(arr[i]));
+                }
+
+                // For strings, it loops through the strings length...
+                else if (typeof arr[i] === "string") {
+                    for (let x = 0; x < arr[i].length; x++) {
+                        // ...logging the first letter of the string (in lowercase) as it goes.
+                        console.log(arr[i][0].toLowerCase());
+                    }
+                }
+
+                else return "give me numbers or strings!"
+            }            
+        }
+
+        let x = [4, "Tom", 1, "Michael", 5, 7, "Jimmy Smith"];
+    
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

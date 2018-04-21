@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <h1>Students</h1>
+        <ul id="main">
+            <!-- this is empty-->
+        </ul> 
+        <script>
+            function appendList(array, id){
+                let ul = document.getElementById(id); // grab the target list container element
+                for (let i = 0; i < array.length; i++) { // for each element through the array, we...
+                    let li = document.createElement("li"); // ...create a new list element...
+                    li.innerHTML = array[i]; // ...set the list element's contents to the current array element...
+                    ul.appendChild(li); // ...aaand add the list element to the list.
+                }
+            };
+            let students = ["Jeff", "Jenny", "Javier", "Joslyn", "Joe", "Jane", "Django"];
+            let target_id = "main";
+            appendList(students, target_id);
+        </script>   
+    </body>
+</html>

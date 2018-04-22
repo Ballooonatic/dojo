@@ -31,16 +31,21 @@
 			html_string += "<tr>";
 			// inner loop
 			for(let j = 0; j<13; j++){
+				// these conditions handles the edges of the table to make them not zeroes.
 				if (i === 0 && j === 0) {
+					// this handles the first corner box
 					var nums = "X";
 				}
 				else if (i === 0){
+					// this bad boy handles the first row.
 					var nums = j;
 				}
 				else if (j === 0){
+					// this bad boy handles the subsequent columns
 					var nums = i;
 				} 
 				else {
+					// and this handles the entire rest of the multiplication table
 					var nums = i * j;
 				}
 				// attach our table data tags around the number

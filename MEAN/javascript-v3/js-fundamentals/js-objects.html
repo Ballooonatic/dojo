@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script>
+
+            let students = [
+                {name: 'Remy', cohort: 'Jan'},
+                {name: 'Genevieve', cohort: 'March'},
+                {name: 'Chuck', cohort: 'Jan'},
+                {name: 'Osmund', cohort: 'June'},
+                {name: 'Nikki', cohort: 'June'},
+                {name: 'Boris', cohort: 'June'}
+            ];
+
+            for (const obj in students) {
+                console.log('Name:', students[obj].name + ', Cohort:', students[obj].cohort);
+            }
+
+
+
+
+            let users = {
+                employees: [
+                    {'first_name':  'Miguel', 'last_name' : 'Jones'},
+                    {'first_name' : 'Ernie', 'last_name' : 'Bertson'},
+                    {'first_name' : 'Nora', 'last_name' : 'Lu'},
+                    {'first_name' : 'Sally', 'last_name' : 'Barkyoumb'}
+                ],
+                managers: [
+                {'first_name' : 'Lillian', 'last_name' : 'Chambers'},
+                {'first_name' : 'Gordon', 'last_name' : 'Poe'}
+                ]
+            };
+
+            for (const key in users) { // loop through users object. the "key" is a string, "employees" and "managers"
+                console.log(key.toUpperCase());
+                for (const obj in users[key]) { // now looping though the arrays of objects. instead of using "users.key" like normal, we need to use brackets.
+                    const first_name = users[key][obj].first_name.toUpperCase(); // storing uppercase first names...
+                    const last_name = users[key][obj].last_name.toUpperCase(); // ...and last names
+                    const len = first_name.length + last_name.length; // adding the lengths together, aaand
+                    console.log(obj, "-", first_name, last_name, "-", len); // logging it all in the specified format.
+                }
+            }
+
+        </script>
+    </head>
+</html>

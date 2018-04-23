@@ -19,6 +19,14 @@ I think this means instead of waiting for tasks to complete to continue, it'll l
 
 
 
+HOISTING
+
+In JS, variable AND function declarations are hoisted to the top of their scope. This means all vars and functions are defined at the top by default (and are set values/expressions later at the place(s) you specify), whether you write the code as such or not. You can even name variables the same in Global and a function, and they will be separate entities
+
+
+
+
+
 JS IS LOOSELY TYPED
 
 It's not picky about data types, and will willingly change types if needed. e.g. combining numbers and strings.

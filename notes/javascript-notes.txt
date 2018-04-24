@@ -23,6 +23,8 @@ HOISTING
 
 In JS, variable AND function declarations are hoisted to the top of their scope. This means all vars and functions are defined at the top by default (and are set values/expressions later at the place(s) you specify), whether you write the code as such or not. You can even name variables the same in Global and a function, and they will be separate entities
 
+Note: vars will remain undefined until set, but FUNCTIONS can actually be run before their declaration perfectly fine. Unless you store it in a variable.
+
 
 
 

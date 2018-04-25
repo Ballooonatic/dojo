@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <script>
+            class Deck {
+
+                constructor() {
+                    this.cards = [];
+                    const suits = ['spades', 'clubs', 'hearts', 'diamonds'];
+                    for (let idx = 0; idx < 4; idx++) {
+                        for (let i = 1; i <= 13; i++) {
+                            this.cards.push({card: i, suit: suits[idx]});
+                        }
+                    }
+                }
+
+                shuffle() { // thanks, fisher-yates shuffle and mike bostock!
+                    var m = this.cards.length, t, i;
+                    // While there remain elements to shuffle…
+                    while (m) {
+                        // Pick a remaining element…
+                        i = Math.floor(Math.random() * m--);
+                        // And swap it with the current element.
+                        t = this.cards[m];
+                        this.cards[m] = this.cards[i];
+                        this.cards[i] = t;
+                    }
+                    return this.cards;
+                }
+
+                reset() { // same as the constructor function. i wanna refactor this later and see if i can wrap the construcor in a function and call it here. but i'm worried about the this problem
+                    this.cards = [];
+                    const suits = ['spades', 'clubs', 'hearts', 'diamonds'];
+                    for (let idx = 0; idx < 4; idx++) {
+                        for (let i = 1; i <= 13; i++) {
+                            this.cards.push({card: i, suit: suits[idx]});
+                        }
+                    }
+                }
+
+                deal() {
+                    var idx = Math.floor(Math.random() * this.cards.length)
+                    var card = this.cards[idx];
+                    this.cards.splice(idx, 1);
+                    return card;
+                }
+
+            }
+
+
+
+            class Player {
+
+                constructor(name) {
+                    this.name = name;
+                    this.hand = [];
+                }
+
+                takeCard(deck) {
+                    var card = deck.deal();
+                    this.hand.push(card);
+                }
+
+                discard(cardIdx) {
+                    this.hand.splice(cardIdx, 1);
+                }
+
+            }
+
+
+
+            const deck = new Deck();
+            console.log(deck);
+
+            // deck.shuffle();
+            // console.log(deck);
+
+            const player = new Player("Vanesa")
+            console.log(player);
+
+            // player.takeCard(deck);
+            // player.takeCard(deck);
+            // player.takeCard(deck);
+            // console.log(player.hand);
+
+            // player.discard(0)
+            // console.log(player.hand);                        
+            
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

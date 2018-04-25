@@ -1,0 +1,98 @@
+<!-- This is not an assignment, but some notes about confusing concepts from the CD platform including their code and comments. I commented around theirs too, so as not to forget what i wanted answered later -->
+
+<html>
+    <head>
+        <script>
+
+            // ~~~~~ the this problem / accessing private methods & attributes ~~~~~
+
+            function Person(name, age) {
+                // create a private variable that stores a reference to the new object we create
+                // here is the key to the "this" problem. without self, "this" in the private method would refer to global scope, not the instance like we want.
+                const self = this;
+                const privateVariable = "This variable is private";
+                const privateMethod = function() {
+                    console.log("this is a private method for " + self.name);
+                    console.log(self);
+                }
+                this.name = name;
+                this.age = age;
+                this.greet = function() {
+                    console.log("Hello my name is " + this.name + " and I am " + this.age + " years old!");
+                    // we can access our attributes within the constructor!
+                    console.log("Also my privateVariable says: " + privateVariable)
+                    // we can access our methods within the constructor!
+                    privateMethod();
+                }
+            }
+            const joe = new Person("Joe", 23);
+            joe.greet();
+
+
+
+
+            // ~~~~~ prototype  ~~~~~
+
+            function Cat(catName) {
+                const name = catName;
+                this.getName = function() {
+                    return name;
+                };
+            }
+            //adding a method to the cat prototype. I still don't get why this is done, as opposed to just putting it in the constructor.
+            //okay the quiz said "Attaching methods to the .prototype attribute saves our program memory because those methods are stored in one place, rather than in every instance."
+            //I thought this was always the case, and attrs/mthds in the constructor weren't stored in every instance, instead using the prototype. If this isn't so, WHY?
+            Cat.prototype.sayHi = function() {
+            console.log('meow');
+            };
+            //adding properties to the cat prototype
+            Cat.prototype.numLegs = 4;
+            const muffin = new Cat('muffin');
+            const biscuit = new Cat('biscuit');
+            console.log(muffin, biscuit);
+            //we access prototype properties the same way as we would access 'own' properties
+            muffin.sayHi();
+            biscuit.sayHi();
+            console.log(muffin.numLegs);
+            // poor mutant cats: muffin.__proto__.numLegs ++;
+            // doing this to muffin will mess up all the cats!
+
+
+
+
+            // ~~~~~ soft privacy / method chaining ~~~~~
+
+            // Private variables are scoped to the constructor with the 'let' keyword
+            function Car(make, model) {
+                let odometer = 0;
+                this.make = make;
+                this.model = model;
+                
+                // To make functions private, we scope them to the constructor
+                function updateOdometer(distance) {
+                    odometer += distance;
+                };
+                
+                // 'Getter' functions help us read private variables
+                this.readOdometer = function() {
+                return odometer;
+                }
+                
+                // 'Setter' functions help us update private variables
+                this.drive = function(distance) {
+                updateOdometer(distance);
+                // return this will allow us to chain methods          NOTE: why haven't we been doing this? what other consequences does it have?
+                return this;
+                }
+            }
+            const myCarInstance = new Car("Chevy", "Camaro");
+            // by returning this, we can chain drive()
+            myCarInstance.drive(50).drive(90); 
+            // private variable is undefined
+            console.log(myCarInstance.odometer);
+            // but we can read it with our getter function
+            console.log(myCarInstance.readOdometer());
+
+        </script>
+    </head>
+</html>

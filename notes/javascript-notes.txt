@@ -39,6 +39,120 @@ It's not picky about data types, and will willingly change types if needed. e.g.
 
 
 
+PROTOTYPE
+
+Every object constructor creates a second memory space for all objects created by that constructor that is accessed by proto. It is one memory space, so any changes there affect every object spit out by that constructor. Basically (at least in ES6), you can access class (prototype) methods right from the class, and instance methods are instance only. I think.
+
+
+Major PROS of Prototype
+
+One memory space for all! If you are creating lots of the same object and use prototype, it can save you significant memory
+Great for general methods for objects
+We can access prototype methods with just using .method or .property.
+The interpreter will go through all prototypes in the prototype chain to check if any of them have the called method or property before giving up (it'll return/use the first match it finds).
+
+
+Major CONS of Prototype
+
+Methods generated in prototype cannot access the private variables inside the constructor function
+Lots of prototypes can be hard to read
+
+
+Adding methods to ES6 classes is the same as adding prototype methods to object constructors.
+In ES6, class methods are called 'static methods`, while instance methods are called 'prototype methods'.
+
+
+
+
+
+ES5 OOP
+
+To read and update private variables, we'll need to write getter and setter methods.
+
+Additionally, we can chain methods together by returning this. Essentially, whenever we tell a public or prototype method to return this, we're asking for the entire object back. This lets us chain function calls together.
+
+
+
+
+
+ES6 OOP
+
+Inheritance is done with the 'extends' keyword. Remember the super() function. It calls the constructor of the parent class. You can even call methods of the parent class with it (which I don't fully understand because you should be able to do that anyway if the class you extended inherited those methods).
+
+
+Getters and Setters
+Not sure about the utility of these guys; CD explicitly mentions there are many ways to recreate the technique, but I guess they serve to make things easier and quicker to read and write.
+
+
+Promises
+They, well, promise to execute code after something happens. when you call resolve(), '.then()' runs. when you call reject(), '.catch()' runs.
+
+
+
+
+
+IMMEDIATE FUNCTIONS
+
+and their disgusting syntax.
+
+( function(param) {code} (args) );
+// or
+( function(param) {code} ) (args);
+
+(myfunction()) <-- create and run the function before doing anything else.
+(myfunction)() <-- create the function before doing anything else and then invoke the function!
+
+
+A common pattern when writing code that should be able to run on non-browser platforms, or when speed is important, is passing the global object as an argument. This creates a local copy of the global object inside the function, which results in faster lookup times.
+
+Example:
+
+(function (global) {
+   console.log( window );               // logs the window object
+   console.log( global );               // logs the window object, but faster!
+}) ( window ) ;
+
+Some Benefits:
+
+It reduces the number of global variables and mitigates variable name pollution.
+Features are self-contained units, resulting in easier testing.
+
+
+
+
+
+CLOSURES
+
+Basically functions returned by other functions.
+
+function Outer() {
+  var count = 0;
+  function inner() {
+    count++
+    console.log(count);
+  }
+  return inner;         // if we returned "inner()", we wouldn't have to make the "counter" variable below to store it, 
+                        // but we would have to run Outer() which would keep setting count back to 0.
+}
+
+var counter = Outer();  // THIS IS SPECIAL. Outer is invoked once, initializing count. It returns inner, storing it in counter, 
+                        // so when counter is invoked, it only runs inner, therefore count is never reinitialized.
+                        // If we didn't have this bad boy, running Outer would just print out the inner function in the browser. Crazy.
+
+              // if we invoke the counter function
+counter()     // this will console.log "1"
+counter()     // this will console.log "2"
+counter()     // this will console.log "3"
+counter()     // this will console.log "4"
+              // So that means that the count variable still exists! 
+              // and it is being changed even though we aren't inside of the Outer function!
+                   // What if we try to access count out here?
+console.log(count) // doesn't work!
+
+
+
+
+
 ARROW FUNCTIONS
 
 The general syntax

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Hunting Github</title>
+
+    <script>
+        window.onload = init;
+
+        function init(){
+
+            document.getElementById('btn').addEventListener('click', getName);
+
+            function getName() {
+                
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'https://api.github.com/users/Dekutard'); // form.username.value
+                xhr.send(null);
+                
+                xhr.onreadystatechange = function () {
+                    const DONE = 4; // readyState 4 means the request is done.
+                    const OK = 200; // status 200 is a successful return.
+
+                    if (xhr.readyState === DONE) {
+                        if (xhr.status === OK) {    
+                            console.log(xhr.responseText); // 'This is the returned text.'
+                            const res = JSON.parse(xhr.responseText); // we gotta turn the string of text back into JSON to access the name.
+                            console.log(res.name);
+                            document.getElementById('username').innerHTML = res.name;
+
+                        } else {
+                            console.log('Error: ' + xhr.status); // An error occurred during the request.
+                        };
+                    };
+
+                };
+            };
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+
+    <p>Your name is:</p>
+    
+    <h2 id="username"></h2>
+    
+    <button id="btn">Get name!</button>
+
+</body>
+
+
+</html>

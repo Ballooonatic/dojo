@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <title>DojoQuery</title>
+        <style>
+            *{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        </style>
+        <script>
+            window.onload = init;
+            function init() {
+
+                (function(){
+
+                    function $Dojo(_class_) {
+                        
+                        const DOMobjects = document.getElementsByClassName(_class_);
+
+                        DOMobjects.click = function(callback) {
+                            for (let i = 0; i < DOMobjects.length; i++) {                            
+                                DOMobjects[i].addEventListener('click', callback);
+                            };
+                        }
+
+                        DOMobjects.hover = function(hoverin, hoverout) {
+                            for (let i = 0; i < DOMobjects.length; i++) {
+                                DOMobjects[i].addEventListener('mouseover', hoverin);
+                                DOMobjects[i].addEventListener('mouseout', hoverout); 
+                            }
+                        }
+
+
+                        return DOMobjects;
+                    }
+                    
+                    function toggleLights() {
+                        if (document.body.style.backgroundColor != "black") {
+                            document.body.style.backgroundColor = "black";
+                            document.body.style.color = "white";
+                        }
+                        else if (document.body.style.backgroundColor == "black") {
+                            document.body.style.backgroundColor = "white"
+                            document.body.style.color = "black"
+                        }
+                    }
+
+                    $Dojo('title').hover(
+                        function(){document.body.style.color = "red"}, 
+                        function(){document.body.style.color = "black"}
+                    );
+                    $Dojo('btn').click(function(){toggleLights()});
+
+                    return $Dojo;
+                    
+                })();
+
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1 class="title">Hey everyone</h1>
+        <h3 class="title">This is test templating for my new library,</h3>
+        <h5 class="title">DojoQuery.</h5>
+
+        <button class="btn">Click me to turn the lights on / off!</button>
+    </body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fib + Nacci</title>
+        <script>
+
+            function _fib() {
+                var fib = 0, nacci = 1;
+                console.log(nacci);
+                
+                function _nacci() {
+                    var fibonacci = fib + nacci;
+                    console.log(fibonacci);
+                    fib = nacci;
+                    nacci = fibonacci;
+                    
+                }
+
+                return _nacci;
+            }
+
+            var fibCounter = _fib(),
+                i = 0;
+
+            while (i < 36) {
+                fibCounter() // should console.log "1"
+                i++;
+            }
+
+            /*
+                0 + 1 = 1
+                0 + 1 = 1
+                1 + 1 = 2
+                1 + 2 = 3
+                2 + 3 = 5
+                3 + 5 = 8
+                5 + 8 = 13
+                8 + 13 = 21
+                13 + 21 = 34
+            */
+
+        </script>
+    </head>
+</html>

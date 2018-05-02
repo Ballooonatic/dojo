@@ -33,3 +33,14 @@ To manage our front-end dependencies, we'll be using another package manager cal
 FS MODULE / HTTP MODULE
 
 An essential part of any server is the ability to read and write files.  Reading a file is how we obtain the content to serve to clients, and writing it is how we output content to the client.  If we don't have a way of doing this, we're not going to be able to build a server!   That is why the creators of Node.js built the fs (file system) module.  The FS module allows us to do exactly what we need: read and write content from files, and it is by default included in Node.js. It is very rare that you will see the HTTP module used without the fs module.  The HTTP module is the module that allows us to build a web server that accepts HTTP requests and can serve responses. Combining the fs and http modules, we can create simple web servers quite easily.
+
+
+
+MODULARIZING NOTES
+
+Using require();
+You'll notice that we require() the string "./my_module". Two things to note:
+
+There is no .js at the end of the file. The require method automatically looks for JavaScript files, so we don't need to include a file extension.
+
+The files app.js and my_module.js are in the same directory. Normally, the require() method looks for node modules that aren't in the same directory as the file that is running; by default, the require() method looks for the modules located in a folder called node_modules. To tell require() to look in the current directory (i.e. the folder that the file is located in) we have to include "./" in front of the file path. "./" (dot-slash) is the file path for the current directory.

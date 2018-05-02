@@ -1,0 +1,35 @@
+DESCRIPTION
+
+How
+As previously mentioned, Node.js uses Chrome's V8 engine to efficiently interpret JavaScript. V8, however, is written in C++ and JS. Why is this important? Well, it allows a relatively high-level language like JavaScript to be compiled to code that is run directly by the CPU! By using this engine, we can skip a bunch of steps in the runtime processes. That means speed, but it also means that our JavaScript interpreting scales to the power of our computer!
+
+Sockets
+One cool thing about Node.js is its ability to use WebSockets, a technology that allows a continuous, non-blocking connection between the client and server.
+
+If the traditional client-server model is something like morse code, where only one party can send data at a time, non-blocking connections allow both parties to send information at the same time. A phone call is a prime example of non-blocking communication: You can talk to your friend while your friend is speaking to you concurrently. With Node.js, we can easily set up these socket connections and have a persistent connection from each client to a server, which means we can actually force information onto the browser without the need of an HTTP request!
+
+Use cases
+Sockets make Node.js a great tool for making real-time applications. These are applications that exchange information as the users input it, with no lag. Things like chat rooms and multiplayer games are great examples of Node’s strengths. Also, Node servers are able to support lots of connections. A single node server can hold 200,000 connections whereas a single Apache server tops out at around 20,000 connections. 
+
+Drawbacks
+Heavy computation is a killer in a Node server, primarily due to poor memory management. In addition, if logic is required before entering the event loop, Node’s performance will decline dramatically. Similarly, Node is often used with noSQL databases such as MongoDB, which we’ll be using in this course. Mongo also uses a V8 engine core, but it doesn’t have the same event-loop (it’s just a worker), so large numbers of inefficient queries can back up that worker. This could take up enough memory that it prevents the event-loop from resolving events, making Node much less awesome.
+
+Node also has a very 'batteries-not-included' unopinionated style, favoring configuration over convention. Out of the box, we won't be able to do all the amazing things a full featured framework like Ruby on Rails can do. We'll need to bring in middleware and do our own configuration to really get the most out of Node!
+
+The upshot? You should use Node for what it’s good for: making servers capable of handling lots of connections and moving data quickly!
+
+
+
+MIDDLEWARE (MODULES)
+
+Nodemon
+Using nodemon instead of the node command in your terminal will automatically re-run your JavaScript file or project whenever you save something. That means no more manual server restarts!
+
+Bower
+To manage our front-end dependencies, we'll be using another package manager called bower. This will save us from having to hunt down the perfect CDN for important libraries like jQuery and Bootstrap.
+
+
+
+FS MODULE / HTTP MODULE
+
+An essential part of any server is the ability to read and write files.  Reading a file is how we obtain the content to serve to clients, and writing it is how we output content to the client.  If we don't have a way of doing this, we're not going to be able to build a server!   That is why the creators of Node.js built the fs (file system) module.  The FS module allows us to do exactly what we need: read and write content from files, and it is by default included in Node.js. It is very rare that you will see the HTTP module used without the fs module.  The HTTP module is the module that allows us to build a web server that accepts HTTP requests and can serve responses. Combining the fs and http modules, we can create simple web servers quite easily.

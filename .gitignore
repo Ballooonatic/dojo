@@ -37,3 +37,10 @@ Temporary Items
 
 
 # End of https://www.gitignore.io/api/macos,visualstudiocode
+
+
+
+### Added by Michael ###
+
+**/node_modules
+**/package-lock.json

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Counter: <%= session.timesVisited %></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    </head>
+
+    <body>
+        <h1>You visited this page:</h1>
+        <h3><%= session.timesVisited %> times.</h3>
+        <form action="/plus-two" method="get"><input type="submit" value="+2"></form>
+        <form action="/reset" method="get"><input type="submit" value="Reset"></form>
+    </body>
+</html>

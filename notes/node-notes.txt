@@ -1,3 +1,21 @@
+INSTALLATIONS
+
+npm init -y
+this command basically says: we are using this folder for an npm based project, (npm init), the (-y) says fill the package.json with the base information.
+
+Node        - nodejs.org manual download.                               [JS Server technology]
+NPM         - comes with node.                                          [node package manager]
+Nodemon     - npm install -g nodemon                                    [keeps your node server up and running when you fix crashes]
+Bower       - npm install -g bower                                      [front-end package manager]
+Express     - npm install express (don't -g install. just doesn’t work) [light, flexible node framework. makes routing a breeze]
+EJS         - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
+body-parser - npm install body-parser                                   [helps us handle post data. express can't]
+
+passing "--save" after the name of the package will save it to your package.json so you can move this dependency configuration around to different projects easy peezy with:
+"npm install"
+
+
+
 DESCRIPTION
 
 How
@@ -20,7 +38,8 @@ The upshot? You should use Node for what it’s good for: making servers capable
 
 
 
-MIDDLEWARE (MODULES)
+
+FULL CODINGDOJO DEPENDENCY/MODULE LIST
 
 Nodemon
 Using nodemon instead of the node command in your terminal will automatically re-run your JavaScript file or project whenever you save something. That means no more manual server restarts!
@@ -28,11 +47,25 @@ Using nodemon instead of the node command in your terminal will automatically re
 Bower
 To manage our front-end dependencies, we'll be using another package manager called bower. This will save us from having to hunt down the perfect CDN for important libraries like jQuery and Bootstrap.
 
+EJS
+Embedded Javascript is the templating engine we will use to render our views. When using EJS, your node server will take the .ejs file you wrote, parse through it, resolve all of the Javascript in the file, and then send a 'rendered' HTML page to the client. This is extra computation that the server will be required to do, and later we'll replace EJS with a full front end framework like Angular.
+
+Express
+Technically a Node module, but let's talk about it here too since it gets it's own letter in the acronym! Express is a wonderful set of tools that help us write rules for incoming HTTP requests. Express is arguably the most useful Node module in your collection, and only rarely will we not use it.
+
+body-parser
+Guess what body-parser is used for? Parsing the body! We'll use this piece of middleware to parse information out of HTTP requests made to our server. Body-parser is incredibly flexible, and will be used to not only pull POST data out of requests, but can also snag data encoded into URLs via GET requests, and later you'll use body-parser to pull raw JSON.
+
+socket.io
+This node module will enable you to use web sockets within your application, we'll get into it more later. You will use socket.io for just this chapter!
+
+
 
 
 FS MODULE / HTTP MODULE
 
 An essential part of any server is the ability to read and write files.  Reading a file is how we obtain the content to serve to clients, and writing it is how we output content to the client.  If we don't have a way of doing this, we're not going to be able to build a server!   That is why the creators of Node.js built the fs (file system) module.  The FS module allows us to do exactly what we need: read and write content from files, and it is by default included in Node.js. It is very rare that you will see the HTTP module used without the fs module.  The HTTP module is the module that allows us to build a web server that accepts HTTP requests and can serve responses. Combining the fs and http modules, we can create simple web servers quite easily.
+
 
 
 
@@ -44,3 +77,39 @@ You'll notice that we require() the string "./my_module". Two things to note:
 There is no .js at the end of the file. The require method automatically looks for JavaScript files, so we don't need to include a file extension.
 
 The files app.js and my_module.js are in the same directory. Normally, the require() method looks for node modules that aren't in the same directory as the file that is running; by default, the require() method looks for the modules located in a folder called node_modules. To tell require() to look in the current directory (i.e. the folder that the file is located in) we have to include "./" in front of the file path. "./" (dot-slash) is the file path for the current directory.
+
+
+
+
+STATIC CONTENT / TEMPLATES
+
+Generally, there are two ways to serve HTML/CSS/JS -- through Static Content or Templates. 
+Static Content -- Serving a static HTML/CSS/JS file from the backend in response to a request.
+Templates -- Using a view/templating engine to generate HTML (PHP, embedded ruby, embedded JavaScript)
+
+
+Serving Static with Express
+app.use(express.static(__dirname + "/static"));
+// we would have a dir called static we place all the static HTML/CSS/JS files in.
+// in their example, the route i used to access it from localhost was '/main.html'
+
+
+Serving Templates with Express 
+~~~ CHECK OUT first-express PROJECT ~~~
+
+we use EJS - npm install ejs
+
+// This sets the location where express will look for the ejs views
+    app.set('views', __dirname + '/views'); 
+// Now lets set the view engine itself so that express knows that we are using ejs as opposed to another templating engine like jade
+    app.set('view engine', 'ejs');
+
+from here we hardcoded data to render when a certain url was req'd. in our '.ejs' file in the views, then, we use <% %> and <%= %> to embed JS in the html code.
+
+
+
+
+HTTP METHODS
+
+GET - for passing insensitive info
+POST - for passing sensitive info

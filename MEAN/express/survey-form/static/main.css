@@ -1,0 +1,15 @@
+* {
+    font-family: Helvetica;
+}
+
+div {
+    height: 400px;
+    width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    border: solid 1px black;
+}
+
+input, label {
+    margin: 5px 0 5px 0;
+}

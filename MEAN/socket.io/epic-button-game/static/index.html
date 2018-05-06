@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>epicbuttongame</title>
+        <link rel="stylesheet" href="style.css">
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script>
+
+            var socket = io();
+            
+            function oneUp() {
+                socket.emit('1up');
+            }
+
+            function reset() {
+                socket.emit('reset');
+            }
+
+            socket.on('greeting', function (data) {
+                console.log(data);
+            });
+
+            socket.on('count', function(counter){
+                document.getElementById('count').innerHTML = counter;
+            });
+
+        </script>
+    </head>
+    <body>
+        <h1 id="count"></h1>
+        <button id="epic" onclick="oneUp()">epic button</button>
+        <button id="reset" onclick="reset()">reset</button>
+    </body>
+</html>

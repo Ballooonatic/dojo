@@ -1,0 +1,29 @@
+* {
+    font-family: Helvetica;
+    margin: 20px auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+#epic {
+    background-color: bisque;
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px  lightgrey;
+    display: block;
+    font-size: 30px;
+    height: 300px;
+    width: 500px;
+}
+
+#reset {
+    background-color: firebrick;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px  lightgrey;
+    color: white;
+    font-size: 15px;
+    height: 75px;
+    width: 150px;
+}

@@ -10,6 +10,7 @@ Bower       - npm install -g bower                                      [front-e
 Express     - npm install express (don't -g install. just doesn’t work) [light, flexible node framework. makes routing a breeze]
 EJS         - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
 body-parser - npm install body-parser                                   [helps us handle post data. express can't]
+socket.io   - npm install socket.io                                     [facilitates realtime connection without http slowing us down]
 
 passing "--save" after the name of the package will save it to your package.json so you can move this dependency configuration around to different projects easy peezy with:
 "npm install"
@@ -113,3 +114,21 @@ HTTP METHODS
 
 GET - for passing insensitive info
 POST - for passing sensitive info
+
+
+
+
+SOCKETS
+
+Servers also have one kind of listener, however they have three kinds of emitters. They can 
+1) emit to all connected socket users, 
+2) respond back directly to a client that initiated a socket message to us, and 
+3) broadcast to all clients except for the one client that initiated a socket message to us. 
+
+
+Testing socket activities is an art form. The key points for testing socket stuff:
+
+* Use multiple browsers (Firefox and Chrome are the best tandem. Safari just isn't as good for debugging).
+* If you need multiple connections in the same browser, use an incognito/private browsing window. Not just another tab!!
+* When your server restarts, refresh every window. 
+* You do not need to wait to deploy to start testing your projects with multiple clients! Just go to your terminal and run the command ifconfig to find your ip address. Give this to a cohort mate and they can type that into their nav bar followed by a colon : and the port you are using to run your project, and you will be able to test your sockets with them. It will be something like 192.163.0.2:1337.

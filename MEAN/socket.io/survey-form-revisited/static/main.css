@@ -1,0 +1,38 @@
+* {
+    font-family: Helvetica;
+}
+
+div {
+    display: inline-grid;
+    width: 150px;
+}
+
+form, p {
+    height: 240px;
+    width: 305px;
+    margin: 100px auto;
+    padding: 20px;
+    border: solid 1px black;
+    box-shadow: 10px 10px 10px lightgray;
+}
+
+p {
+    margin: 25px auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+input, label, select, textarea {
+    margin: 5px 0 5px 0;
+    display: block;
+}
+
+textarea {
+    width: 300px;
+    height: 75px;
+}
+
+button {
+    float: right;
+    margin: 5px;
+}

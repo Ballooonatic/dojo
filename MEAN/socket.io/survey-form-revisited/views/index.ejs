@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type ="text/javascript">
+            $(document).ready(function (){
+    
+                var socket = io();
+    
+                socket.on('greeting', function (data) {
+                    console.log(data.msg);
+                });
+
+                $("form").on("submit", function(event) {
+                    event.preventDefault();
+                    var formdatas = $(this).serializeArray();
+                    socket.emit("formdatas", formdatas);
+                    console.log("formdatas submitteds!");
+                });
+                
+                socket.on("message", function(data){
+                //this gonna get real ugly
+                var msg = "<p>You emitted the following info: <br> naem: "+data.name+"<br> dojo: "+data.dojoLocation+"<br> religion: "+data.faveLanguage+"<br> comment: "+data.comment+"<br> Your lucky number from the server is "+data.rand+".</p>"
+                    $('body').append(msg)
+                });
+
+            })
+    </script>
+    </head>
+
+    <body>
+        <form>
+
+            <div id="labels">
+                <label for="name">enter ur fkn nam plz</label>
+                <label for="dojo">wer tf ur dojo brah</label>
+                <label for="faveLang">choose ur languidge of ultimaet worship</label>
+                <label for="comt">just say it</label>
+            </div>
+
+            <div id="inputs">
+
+                <input type="text" name="name" id="name">
+                
+                <select name="dojoLocation" id="dojo">
+                    <option selected> pick two </option>
+                    <option value="silicon valley"> silicon valley  </option>
+                    <option value="the moon">       the moon        </option>
+                    <option value="india">          india           </option>
+                </select>
+                
+                
+                <select name="faveLanguage" id="faveLang">
+                    <option selected> pick ONE </option>
+                    <option value="r">          r           </option>
+                    <option value="swift">      swift       </option>
+                    <option value="rust">       rust        </option>
+                    <option value="python">     python      </option>
+                    <option value="brainfuck">  brainfuck   </option>
+                    <option value="assembly">   assembly    </option>
+                    <option value="lua">        lua         </option>
+                    <option value="markdown">   markdown    </option>
+                    <option value="latex">      latex       </option>
+                    <option value="xml">        xml         </option>
+                    <option value="objective">  objective-c </option>
+                </select>
+            </div>
+                
+            <textarea name="comment" id="comt"></textarea>
+            
+            <button>Submit</button>
+        </form>
+    </body>      
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>groupchat</title>
+        <link rel="stylesheet" href="style.css">
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function(event) {
+        
+                var socket = io();
+
+                // 1.2 ~ Go through messages and, for each one, list them on the page.
+                socket.on('loadMessages', function(messages){ 
+                    console.log(messages); 
+                    for (let i = 0; i < messages.length; i++) {
+                        var li = document.createElement('li')
+                        if (messages[i].name === undefined) {
+                            li.innerHTML = messages[i].msg
+                        } 
+                        else {
+                            li.innerHTML = messages[i].name + ": " + messages[i].msg;
+                        }
+                        document.getElementById('messages').appendChild(li);
+                    }
+                });
+
+                // 2.1 ~ Take the name prompted from the user, send it to the server.
+                var nam = prompt("plz enter an usernam!");
+                socket.emit('login', nam)
+
+                // 2.3 ~ tell the world the new user joined.
+                socket.on('join', function (nam) {
+                    var li = document.createElement('li')
+                    li.innerHTML = "~~~ "+nam+" joined! ~~~"
+                    document.getElementById('messages').appendChild(li);
+                });
+
+                // 3.1 ~ when the button is clicked, take the input value and emit it.
+                document.getElementById('send').addEventListener('click', function(){
+                    if (document.getElementById('msg').value !== "") {   
+                        var msg = document.getElementById('msg').value                    
+                        socket.emit('msg', msg)
+                        document.getElementById('msg').value = "";
+                    }
+                });
+
+                // 3.3 ~ when the message comes back, list it on the page.
+                socket.on('msg', function(data) {
+                    var li = document.createElement('li')
+                    li.innerHTML = data.name + ": " + data.msg;
+                    document.getElementById('messages').appendChild(li);
+                });
+                
+                // 4.2 ~ when disconnect is received, tell everyone they out.
+                socket.on('user-left', function(name){
+                    var li = document.createElement('li')
+                    li.innerHTML = "~~~ "+name+" left! ~~~"
+                    document.getElementById('messages').appendChild(li);
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        
+        <div id="msgs">
+            <h1>messages</h1>
+            <ul id="messages"></ul>
+        </div>
+
+        <div id="form">
+            <input id="msg"> 
+            <button id="send">send</button>
+        </div id="form">
+
+    </body>
+</html>

@@ -11,7 +11,8 @@ Express     - npm install express (don't -g install. just doesn’t work) [light
 EJS         - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
 body-parser - npm install body-parser                                   [helps us handle post data. express can't]
 socket.io   - npm install socket.io                                     [facilitates realtime connection without http slowing us down]
-mongodb     -brew install mongodb                                       [BSON database. Basically JS. Super quick and scalable. NoSQL. See its section fo more setup]
+mongodb     - brew install mongodb                                      [BSON database. Basically JS. Super quick and scalable. NoSQL. See its section fo more setup]
+mongoose    - npm install mongoose                                      [node module, accesses our mongodbs and provides structure for the data.]
 
 passing "--save" after the name of the package will save it to your package.json so you can move this dependency configuration around to different projects easy peezy with:
 "npm install"
@@ -283,3 +284,5 @@ This will remove all instances of 'value' from the documents with the array spec
 
 
 ~~~~~~~~~~ MONGOOSE ~~~~~~~~~~
+
+The most popular way of using MongoDB with Node and Express is not establishing a direct connection. What we are going to do instead is use a Node module called Mongoose. Mongoose is able to connect to a MongoDB database and it will allow us to give a little bit more structure to our data by providing functionality in the form of models and schemas. Remember when we said that MongoDB is really free-form? Well, that's very helpful in some ways, but a little more structure allows us to do things with a lot more confidence in the integrity of our data. By converting our free-form MongoDB data into models, we are able to do things like validate, add associations, and run more intricate queries more effectively.

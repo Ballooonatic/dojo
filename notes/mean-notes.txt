@@ -3,23 +3,25 @@ INSTALLATIONS
 npm init -y
 this command basically says: we are using this folder for an npm based project, (npm init), the (-y) says fill the package.json with the base information.
 
-Node        - nodejs.org manual download.                               [JS Server technology]
-NPM         - comes with node.                                          [node package manager]
-Nodemon     - npm install -g nodemon                                    [keeps your node server up and running when you fix crashes]
-Bower       - npm install -g bower                                      [front-end package manager]
-Express     - npm install express (don't -g install. just doesn’t work) [light, flexible node framework. makes routing a breeze]
-EJS         - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
-body-parser - npm install body-parser                                   [helps us handle post data. express can't]
-socket.io   - npm install socket.io                                     [facilitates realtime connection without http slowing us down]
-mongodb     - brew install mongodb                                      [BSON database. Basically JS. Super quick and scalable. NoSQL. See its section fo more setup]
-mongoose    - npm install mongoose                                      [node module, accesses our mongodbs and provides structure for the data.]
+Node          - nodejs.org manual download.                               [JS Server technology]
+NPM           - comes with node.                                          [node package manager]
+Nodemon       - npm install -g nodemon                                    [keeps your node server up and running when you fix crashes]
+Bower         - npm install -g bower                                      [front-end package manager]
+Express       - npm install express (don't -g install. just doesn’t work) [light, flexible node framework. makes routing a breeze]
+EJS           - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
+body-parser   - npm install body-parser                                   [helps us handle post data. express can't]
+socket.io     - npm install socket.io                                     [facilitates realtime connection without http slowing us down]
+mongodb       - brew install mongodb                                      [BSON database. Basically JS. Super quick and scalable. NoSQL. See its section for more setup]
+mongoose      - npm install mongoose                                      [node module, accesses our mongodbs and provides structure for the data.]
+express-flash - npm install express-flash                                 [displays mongoose validation errors. somehow mongoose didn't build that in. must have session to work.]
 
 passing "--save" after the name of the package will save it to your package.json so you can move this dependency configuration around to different projects easy peezy with:
 "npm install"
 
 
 
-DESCRIPTION
+
+NODE DESCRIPTION
 
 How
 As previously mentioned, Node.js uses Chrome's V8 engine to efficiently interpret JavaScript. V8, however, is written in C++ and JS. Why is this important? Well, it allows a relatively high-level language like JavaScript to be compiled to code that is run directly by the CPU! By using this engine, we can skip a bunch of steps in the runtime processes. That means speed, but it also means that our JavaScript interpreting scales to the power of our computer!
@@ -42,7 +44,7 @@ The upshot? You should use Node for what it’s good for: making servers capable
 
 
 
-FULL CODINGDOJO DEPENDENCY/MODULE LIST
+FULL CODINGDOJO DEPENDENCY/MODULE/TECHNOLOGY LIST
 
 Nodemon
 Using nodemon instead of the node command in your terminal will automatically re-run your JavaScript file or project whenever you save something. That means no more manual server restarts!
@@ -62,17 +64,23 @@ Guess what body-parser is used for? Parsing the body! We'll use this piece of mi
 socket.io
 This node module will enable you to use web sockets within your application, we'll get into it more later. You will use socket.io for just this chapter!
 
+MongoDB
+BSON database technology. Super quick because it's not relational; each data piece doesn't have to be aware of the others. In SQL, you can't have data with as many rows and columns as the entry warrants; they all share the same table, and thus have to be handled differently, facilitating different tables with different values and expensive JOIN statements. Also, since MongoDB is based on JSON, it meshes gracefully with Node.
+
+Mongoose
+This is the node module that lets us connect to our MongoDB server (daemon) through node/express. It makes use of JavaScript's OOP, classes and objects to facilitate schemas, models of them, associations, validations, etc. providing structure to our data.
 
 
 
-FS MODULE / HTTP MODULE
+
+NODE: FS MODULE / HTTP MODULE
 
 An essential part of any server is the ability to read and write files.  Reading a file is how we obtain the content to serve to clients, and writing it is how we output content to the client.  If we don't have a way of doing this, we're not going to be able to build a server!   That is why the creators of Node.js built the fs (file system) module.  The FS module allows us to do exactly what we need: read and write content from files, and it is by default included in Node.js. It is very rare that you will see the HTTP module used without the fs module.  The HTTP module is the module that allows us to build a web server that accepts HTTP requests and can serve responses. Combining the fs and http modules, we can create simple web servers quite easily.
 
 
 
 
-MODULARIZING NOTES
+NODE MODULARIZING NOTES
 
 Using require();
 You'll notice that we require() the string "./my_module". Two things to note:
@@ -138,6 +146,18 @@ Testing socket activities is an art form. The key points for testing socket stuf
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 MONGODB
 
 ~~~~~~~~~~ Why ~~~~~~~~~~
@@ -160,6 +180,7 @@ For every user, we have to find the address that matches specifically one piece 
 With the ability of Node servers to use socket connections, we now have the ability to communicate in real-time between clients and servers. But if we need to do an expensive operation on the server side with the database, we'll negate all the speed advantages we've gained using a Node server. This is a good reason to consider MongoDB. There are plenty of NoSQL databases out there, why use MongoDB in particular? Why make it a quintessential part of the MEAN stack?
 
 Because everything stored in a MongoDB database is a JSON object.
+
 
 
 
@@ -201,6 +222,7 @@ sudo kill *that_number*
 
 
 
+
 ~~~~~~~~~~ BASICS ~~~~~~~~~~
 
 Databases
@@ -213,6 +235,7 @@ Collections
 show collections                // shows all collections
 db.createCollection("name")     // self explanatory
 db.collection.drop()            // deletes the collection
+
 
 
 
@@ -259,6 +282,7 @@ db.collection.updateMany( { oldkey: 'oldval' }, { $set: { newkey: 'newval' } } )
 
 
 
+
 ~~~~~~~~~~ OPERATORS ~~~~~~~~~~
 
 $gt  (greater than)
@@ -283,6 +307,59 @@ This will remove all instances of 'value' from the documents with the array spec
 
 
 
-~~~~~~~~~~ MONGOOSE ~~~~~~~~~~
+
+
+
+
+
+MONGOOSE
+
+Description:
 
 The most popular way of using MongoDB with Node and Express is not establishing a direct connection. What we are going to do instead is use a Node module called Mongoose. Mongoose is able to connect to a MongoDB database and it will allow us to give a little bit more structure to our data by providing functionality in the form of models and schemas. Remember when we said that MongoDB is really free-form? Well, that's very helpful in some ways, but a little more structure allows us to do things with a lot more confidence in the integrity of our data. By converting our free-form MongoDB data into models, we are able to do things like validate, add associations, and run more intricate queries more effectively.
+
+
+
+Promises:
+
+// Use native promises, because mongoose's promise functionality will be broken soon
+mongoose.Promise = global.Promise;
+
+
+
+Setup:
+
+var mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost/mongoose-demo');
+
+        // Note: If you connect to a database that doesn't exist, mongoose WILL create the DB for you!
+
+var UserSchema = new mongoose.Schema({
+    name: String,
+    age: Number
+})
+
+        // Note: If you create a model, mongoose WILL create the appropriate collection in your database for you! Even with the appropriate naming (plural for collection names)!
+
+mongoose.model('User', UserSchema);
+
+        // We are setting this Schema in our Models as 'User'
+
+var User = mongoose.model('User');
+
+        // We are retrieving this Schema from our Models, named 'User'
+
+
+
+Validations:
+
+var UserSchema = new mongoose.Schema({
+    first_name:  { type: String, required: true, minlength: 6},
+    last_name: { type: String, required: true, maxlength: 20 },
+    age: { type: Number, min: 1, max: 150 },
+    email: { type: String, required: true }
+}, {timestamps: true });
+
+Displaying validation errors:   
+Use express flash ("npm install --save express-flash") to display your errors. In order to use express flash messages, you must have session.

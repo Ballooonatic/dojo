@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>quoting dojo</title>
+    </head>
+    <body>
+        <a href="/">post a quote!</a>
+        <table>
+            <thead>
+                <th>quote</th>
+                <th>author</th>
+                <th>time</th>
+            </thead>
+            <tbody>
+                <% for (var i in quotes) { %>
+                    <tr>
+                        <td style="color:tomato">"<%= quotes[i].quote %>"</td>
+                        <td> - <%= quotes[i].author %></td>
+                        <td style="color:limegreen"> ~ <%= quotes[i].createdAt %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </body>
+</html>

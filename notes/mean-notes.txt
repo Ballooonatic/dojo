@@ -417,4 +417,27 @@ Blog.create(req.body, function(err, data){
                }
           })
       }
-})  
+})
+
+
+
+
+
+
+
+RESTFUL ROUTING
+
+RESTful routing is an industry standard for routing regulation. Having this standard makes it much less of a headache to decipher everyones' patterns for GET and POST requests.
+
+    Action	                                Client HTTP Request	                        Server Routing Rule
+Retrieve all widgets	                'GET'    http://company.com/widgets	        app.get("/widgets", (req, res) => {})
+Retrieve 1 widget with the id of 7	    'GET'    http://company.com/widgets/7	    app.get("/widgets/:id", (req, res) => {})
+Create a widget	                        'POST'   http://company.com/widgets         app.post("/widgets", (req, res) => {})
+Update 1 widget with the id of 7	    'PUT'    http://company.com/widgets/7       app.put("/widgets/:id", (req, res) => {})
+Delete 1 widget with the id of 7	    'DELETE' http://company.com/widgets/7	    app.delete("/widgets/:id", (req, res) => {})
+
+'PUT' is similar to a POST request, along with the ID passed through the URL, we will also send the new up-to-date object we want to use for the update.
+
+'DELETE' is similar to a GET request, meaning we simply need the id of the widget we want to delete.
+
+For all other HTTP requests more unique than the list above, we would have to make our own custom routes. At least now we have a starting point, which is far better than starting from none.

@@ -3,17 +3,18 @@ INSTALLATIONS
 npm init -y
 this command basically says: we are using this folder for an npm based project, (npm init), the (-y) says fill the package.json with the base information.
 
-Node          - nodejs.org manual download.                               [JS Server technology]
-NPM           - comes with node.                                          [node package manager]
-Nodemon       - npm install -g nodemon                                    [keeps your node server up and running when you fix crashes]
-Bower         - npm install -g bower                                      [front-end package manager]
-Express       - npm install express (don't -g install. just doesn’t work) [light, flexible node framework. makes routing a breeze]
-EJS           - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
-body-parser   - npm install body-parser                                   [helps us handle post data. express can't]
-socket.io     - npm install socket.io                                     [facilitates realtime connection without http slowing us down]
-mongodb       - brew install mongodb                                      [BSON database. Basically JS. Super quick and scalable. NoSQL. See its section for more setup]
-mongoose      - npm install mongoose                                      [node module, accesses our mongodbs and provides structure for the data.]
-express-flash - npm install express-flash                                 [displays mongoose validation errors. somehow mongoose didn't build that in. must have session to work.]
+Node            - nodejs.org manual download.                               [JS Server technology]
+NPM             - comes with node.                                          [node package manager]
+Nodemon         - npm install -g nodemon                                    [keeps your node server up and running when you fix crashes]
+Bower           - npm install -g bower                                      [front-end package manager]
+Express         - npm install express (don't -g install. just doesn’t work) [light, flexible node framework. makes routing a breeze]
+EJS             - npm install ejs (stands for Embedded JavaScript)          [templating engine. puts <script> tags to shame.]
+express-session - npm install express-session                               [facilitates session data, lasting longer than the clients' connection.]
+body-parser     - npm install body-parser                                   [helps us handle post data. express can't]
+socket.io       - npm install socket.io                                     [facilitates realtime connection without http slowing us down]
+mongodb         - brew install mongodb                                      [BSON database. Basically JS. Super quick and scalable. NoSQL. See its section for more setup]
+mongoose        - npm install mongoose                                      [node module, accesses our mongodbs and provides structure for the data.]
+express-flash   - npm install express-flash                                 [displays mongoose validation errors. somehow mongoose didn't build that in. must have session to work.]
 
 passing "--save" after the name of the package will save it to your package.json so you can move this dependency configuration around to different projects easy peezy with:
 "npm install"
@@ -57,6 +58,12 @@ Embedded Javascript is the templating engine we will use to render our views. Wh
 
 Express
 Technically a Node module, but let's talk about it here too since it gets it's own letter in the acronym! Express is a wonderful set of tools that help us write rules for incoming HTTP requests. Express is arguably the most useful Node module in your collection, and only rarely will we not use it.
+
+express-session
+Session middleware for express. Stores data in the user session ID, lasting longer than the connection to the webpage
+
+express-flash
+Flash is an extension of connect-flash (somehow doesn't require it) with the ability to define a flash message and render it without redirecting the request. We use it for displaying mongoose validation errors. Requires session
 
 body-parser
 Guess what body-parser is used for? Parsing the body! We'll use this piece of middleware to parse information out of HTTP requests made to our server. Body-parser is incredibly flexible, and will be used to not only pull POST data out of requests, but can also snag data encoded into URLs via GET requests, and later you'll use body-parser to pull raw JSON.
@@ -320,10 +327,12 @@ The most popular way of using MongoDB with Node and Express is not establishing 
 
 
 
+
 Promises:
 
 // Use native promises, because mongoose's promise functionality will be broken soon
 mongoose.Promise = global.Promise;
+
 
 
 
@@ -352,6 +361,7 @@ var User = mongoose.model('User');
 
 
 
+
 Validations:
 
 var UserSchema = new mongoose.Schema({
@@ -363,3 +373,48 @@ var UserSchema = new mongoose.Schema({
 
 Displaying validation errors:   
 Use express flash ("npm install --save express-flash") to display your errors. In order to use express flash messages, you must have session.
+
+
+
+
+Associations:
+
+Pretty much embedding documents. We can set up our schemas to expect arrays of objects from other schemas.
+
+const PostSchema = new mongoose.Schema({
+    title: {type: String, required: [true, "Posts must have a title"]},
+    content: {type: String, required: [true, "Posts must have content"]},
+}, {timestamps: true})
+
+const BlogSchema = new mongoose.Schema({
+    title: {type: String, required: [true, "Blogs must have a title"], minlength: [3, "Titles must have at least 3 characters"]},
+    posts: [PostSchema]
+}, {timestamps: true})
+
+const UserSchema = new mongoose.Schema({
+    first_name: {type: String, required: [true, "A first name is required"]},
+    last_name: {type: String, required: [true, "A last name is required"]},
+    blogs: [BlogSchema]
+}, {timestamps: true})
+
+Couldn't be easier. Obviously, make sure to put the associated schema above the reference schema so it knows what to look to
+
+
+const Blog = mongoose.Schema('Blog');
+const User = mongoose.Schema('User');
+
+Blog.create(req.body, function(err, data){
+     if(err){
+          // handle the error from creating a blog
+     }
+     else {
+          User.findOneAndUpdate({_id: req.params.id}, {$push: {blogs: data}}, function(err, data){
+               if(err){
+                    // handle the error from trying to update the user
+               }
+               else {
+                    // it worked! How shall we celebrate?
+               }
+          })
+      }
+})  

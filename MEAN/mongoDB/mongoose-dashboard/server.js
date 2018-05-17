@@ -5,21 +5,10 @@ var app        = express();
 var path       = require('path');
 var mongoose   = require('mongoose');
 var bodyParser = require('body-parser');
-var flash      = require('express-flash');
-var session    = require('express-session');
  
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(flash());
 app.use(express.static(path.join(__dirname, './static')));
-app.use(session({
-    secret: 'keyboardkitteh',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 }
-}))
 
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
@@ -51,9 +40,6 @@ app.get('/', function(req, res) {
     Cow.find({}, function(err, cows) {
         if (err) {
             console.log("~~~~~ We have a query error! ~~~~~", err);
-            for(var key in err.errors){
-                req.flash('query err:', err.errors[key].message);
-            }
         } else {
             console.log('~~~~~ successfully found all cows! ~~~~~');
             console.log(cows);
@@ -73,12 +59,9 @@ app.get('/cows/new', function(req, res) {
 
 // GET '/cows/:id' Displays information about one cow.
 app.get('/cows/:id', function(req, res) {
-    Cow.findOne({_id: req.params.id}, function(err, cow) {                                                      // fix the query
+    Cow.findOne({_id: req.params.id}, function(err, cow) {
         if (err) {
             console.log("~~~~~ We have a query error! ~~~~~", err);
-            for(var key in err.errors){
-                req.flash('query err:', err.errors[key].message);
-            }
         } else {
             console.log('~~~~~ successfully found the cow! ~~~~~');
             console.log(cow);
@@ -102,9 +85,6 @@ app.post('/cows', function(req, res) {
     cow.save(function(err) {
         if(err) {
             console.log("~~~~~ We have a post error! ~~~~~", err);
-            for(var key in err.errors){
-                req.flash('POST err:', err.errors[key].message);
-            }
         } else {
             console.log('~~~~~ successfully added a cow! ~~~~~');
             res.redirect('/');
@@ -116,12 +96,9 @@ app.post('/cows', function(req, res) {
 
 // GET '/cows/edit/:id' Should show a form to edit an existing cow.
 app.get('/cows/edit/:id', function(req, res) {
-    Cow.findOne({_id: req.params.id}, function(err, cow) {                                                      // fix the query
+    Cow.findOne({_id: req.params.id}, function(err, cow) {
         if (err) {
             console.log("~~~~~ We have a query error! ~~~~~", err);
-            for(var key in err.errors){
-                req.flash('query err:', err.errors[key].message);
-            }
         } else {
             console.log('~~~~~ successfully found the cow! ~~~~~');
             console.log(cow);
@@ -134,7 +111,7 @@ app.get('/cows/edit/:id', function(req, res) {
 
 // POST '/cows/:id' Should be the action attribute for the form in the above route (GET '/cows/edit/:id').
 app.post('/cows/:id', function (req, res) {
-    Cow.updateOne({_id: req.params.id}, {                                                                       // fix the query
+    Cow.updateOne({_id: req.params.id}, {
         name: req.body.name,
         color: req.body.color,
         race: req.body.race,
@@ -143,9 +120,6 @@ app.post('/cows/:id', function (req, res) {
     }, function(err) {
         if (err) {
             console.log("~~~~~ We have a update error! ~~~~~", err);
-            for(var key in err.errors){
-                req.flash('update err:', err.errors[key].message);
-            }
         } else {
             console.log('~~~~~ successfully updated the cow! ~~~~~');
             res.redirect('/');
@@ -157,12 +131,9 @@ app.post('/cows/:id', function (req, res) {
 
 // POST '/cows/destroy/:id' Should delete the cow from the database by ID.
 app.post('/cows/destroy/:id', function (req, res) {
-    Cow.remove({_id: req.params.id}, function(err) {                                                             // fix the query
+    Cow.remove({_id: req.params.id}, function(err) {
         if (err) {
             console.log("~~~~~ We have a delete error! ~~~~~", err);
-            for(var key in err.errors){
-                req.flash('update err:', err.errors[key].message);
-            }
         } else {
             console.log('~~~~~ successfully deleted the cow! ~~~~~');
             res.redirect('/');

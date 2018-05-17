@@ -9,9 +9,9 @@
     <h1> Message Board </h1>
 
     <form action="/messages/new" method="post">
-        <input type="text" name="name" placeholder="Name">
-        <textarea name="message" placeholder="Message"></textarea>
-        <input type="submit" value="Post message">
+        <input type="text" name="name" placeholder="Name" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <input type="submit" value="Post message" required>
     </form>
 
     <% for (var i in msgs) { %>
@@ -29,9 +29,9 @@
         <% } %>
             
         <form action="/comments/new/<%= msgs[i]._id %>" method="post">
-            <input type="text" name="name" placeholder="Name">
-            <textarea name="comment" placeholder="Comment"></textarea>
-            <input type="submit" value="Post comment">
+            <input type="text" name="name" placeholder="Name" required>
+            <textarea name="comment" placeholder="Comment" required></textarea>
+            <input type="submit" value="Post comment" required>
         </form>
 
         <hr>

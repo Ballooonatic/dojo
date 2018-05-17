@@ -14,11 +14,11 @@
 
             <form action="/cows/<%= cow._id %>" method="post">
 
-                <input type="text" name="name" value="<%= cow.name %>">
-                <input type="text" name="color" value="<%= cow.color %>">
-                <input type="text" name="race" value="<%= cow.race %>">
-                <input type="text" name="age" value="<%= cow.age %>">
-                <input type="text" name="currentFarm" value="<%= cow.currentFarm %>">
+                <input type="text" name="name" value="<%= cow.name %>" required>
+                <input type="text" name="color" value="<%= cow.color %>" required>
+                <input type="text" name="race" value="<%= cow.race %>" required>
+                <input type="text" name="age" value="<%= cow.age %>" required>
+                <input type="text" name="currentFarm" value="<%= cow.currentFarm %>" required>
 
                 <input type="submit" value="sUmBiT">
             
@@ -28,7 +28,6 @@
             <a href="/cows/<%= cow._id %>">View this cow</a>
 
             <form action="/cows/destroy/<%= cow._id %>" method="post">
-                <!-- hidden input passing cows id? -->
                 <input type="submit" value="delete this cow">
             </form>
         

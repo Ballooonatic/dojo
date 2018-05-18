@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>cow dashboard</title>
+    </head>
+    <body>
+
+        <h1>cow dashboard</h1>
+        
+        <% for (var i in cows) { %>
+        
+            <div>
+                <hr>
+                <p><%= cows[i].name %></p>
+                
+                <a href="/cows/<%= cows[i]._id %>">View this cow</a>
+                <a href="/cows/edit/<%= cows[i]._id %>">Edit this cow</a>
+
+                <form action="/cows/destroy/<%= cows[i]._id %>" method="post">
+                    <input type="submit" value="delete this cow">
+                </form>
+                <hr>
+            </div>
+
+        <% } %>
+
+        <a href="/cows/new">Add a new cow!</a>
+
+    </body>
+</html>

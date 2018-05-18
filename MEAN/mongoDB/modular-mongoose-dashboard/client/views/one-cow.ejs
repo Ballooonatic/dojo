@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <% if (cow) { %>
+            <title> <%= cow.name %> </title>
+        <% } %>
+    </head>
+    <body>
+
+        <% if (cow) { %>
+
+            <h2> <%= cow.name %> </h2>
+            <p>Fur: <%= cow.color %> </p>
+            <p>Race: <%= cow.race %> </p>
+            <p>Age: <%= cow.age %> </p>
+            <p>Farm: <%= cow.currentFarm %> </p>
+
+            <a href="/cows/edit/<%= cow._id %>">edit this cow</a>
+
+            <form action="/cows/destroy/<%= cow._id %>" method="post">
+                <input type="submit" value="delete this cow">
+            </form>
+
+        <% } %>
+
+        <a href="/">Back to Dashboard</a>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Log in or Register</title>
+    </head>
+    <body>
+
+        <h2>Register?</h2>
+        <form action="/user/register" method="post">
+            <input type="text" name="first_name" placeholder="first_name">
+            <br>
+            <input type="text" name="last_name" placeholder="last_name">
+            <br>
+            <input type="email" name="email" placeholder="e-mail">
+            <br>            
+            <input type="text" name="phone" placeholder="phone">
+            <br>
+            <label for="male">Male</label> <input type="radio" name="gender" value="male">
+            <br>
+            <label for="female">Female</label> <input type="radio" name="gender" value="female">
+            <br>
+            <input type="number" name="age" placeholder="age">
+            <br>
+            <input type="password" name="password" placeholder="password">
+            <br>
+            <input type="password" name="confirm_pass" placeholder="confirm password">
+            <br>
+            <input type="submit" value="register">
+        </form>
+
+        <p>or</p>
+        <h2>Log in</h2>
+        <form action="/user/login" method="post">
+            <input type="email" name="email" placeholder="e-mail">
+            <br>
+            <input type="password" name="password" placeholder="password">
+            <br>
+            <input type="submit" value="log in">
+        </form>
+
+    </body>
+</html>

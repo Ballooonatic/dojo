@@ -3,7 +3,10 @@ ANGULAR
 
 ~~~~~~~~~~ Getting Started ~~~~~~~~~~
 
-Note: The C.L.I. is not the only way to build an Angular app. You could build it by including only the necessary package.json files and config files. Also, the C.L.I. gives us a large version, full of libraries, we can easily remove libraries we are not going to use, so even though the initial app is full of resources, we can easily modify it to become a light weight framework.
+Note: The C.L.I. is not the only way to build an Angular app.
+You could build it by including only the necessary package.json files and config files.
+Also, the C.L.I. gives us a large version, full of libraries, we can easily remove libraries we are not going to use,
+so even though the initial app is full of resources, we can easily modify it to become a light weight framework.
 
 ng help
 
@@ -188,7 +191,11 @@ export class AppComponent {
 
 
 
-Now we're all set up to start making http requests from the service! Let's begin by using the route in our Restful Task API assignment that fetches all tasks. Make a function called getTasks(). It will use the http module's .get() method to go to our route (in this example, that route is /tasks). Since Angular returns an Observable, let's store it in a variable and subscribe. For now, just have your service print the data that we get back.
+Now we're all set up to start making http requests from the service!
+Let's begin by using the route in our Restful Task API assignment that fetches all tasks. Make a function called getTasks().
+It will use the http module's .get() method to go to our route (in this example, that route is /tasks).
+Since Angular returns an Observable, let's store it in a variable and subscribe.
+For now, just have your service print the data that we get back.
 
 .../app/http.service.ts
 

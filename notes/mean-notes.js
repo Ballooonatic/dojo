@@ -16,6 +16,7 @@
 // mongoose           - npm install mongoose                                      [node module, accesses our mongodbs and provides structure for the data.]
 // express-flash      - npm install express-flash                                 [displays mongoose validation errors. somehow mongoose didn't build that in. must have session to work.]
 // bcrypt-as-promised - npm install bcrypt-as-promised                            [promisified bcrypt. encrypts sensitive info, and checks validity of hashes]
+// angular            - npm install -g @angular/cli                               [opinionated TS front-end SPA framework. provides robust structure and tooling for large dev teams and projects.]
 
 
 // passing "--save" after the name of the package will save it to your package.json so you can move this dependency configuration around to different projects easy peezy with:
@@ -82,6 +83,8 @@
 // bcrypt-as-promised
 // This lets us encrypt things like passwords and check if they match encryption, as well as generate salts. Promisified.
 
+// Angular 
+// All-in-one, opinionated TypeScript based Single-Page-Application front-end framework. Well-suited for very large projects / teams due to the robust structure and pre-defined paradigms, if you will. Helps reduce server load by moving the responsibility of processing data into html from the server to the client. Instead of server-side rendering, client-side templating is utilized to facilitate the functionality of the app. This way, the server only has to send data back and forth, making the experience overall faster and therefore better for the user.
 
 
 
@@ -428,7 +431,8 @@ Blog.create(req.body, function(err, data){
 
 
 
-// Model/Schema Methods
+// Model/Schema Methods:
+
 // ...
 var myModelSchema= new mongoose.Schema({
     name: {type:String}
@@ -486,8 +490,8 @@ err = {
 
 
 
-
 // Custom Validations:
+
 var mongoose       = require('mongoose');
 var Schema         = mongoose.Schema;
 var customerSchema = new Schema({
@@ -618,3 +622,59 @@ bcrypt.compare('password_from_form', 'stored_hashed_password')
 })
 
 // What is the 'result'? - It's the resulting boolean value of the operation. A result of true represents the password was correct.
+
+
+
+
+
+
+// ANGULAR
+
+
+// ~~~~~~~~~~ Getting Started ~~~~~~~~~~
+
+// Note: The C.L.I. is not the only way to build an Angular app. You could build it by including only the necessary package.json files and config files. Also, the C.L.I. gives us a large version, full of libraries, we can easily remove libraries we are not going to use, so even though the initial app is full of resources, we can easily modify it to become a light weight framework.
+
+// ng help
+
+
+
+// Generating and serving an Angular project via a development server:
+
+// ng new app
+// cd app
+// ng serve
+
+// "app" will be the project name. you may say "ng serve app" to serve it up without having to cd up there
+
+
+
+// Served on localhost://4200 by default. The following command can help that if you like.
+
+// ng serve --host 0.0.0.0 --port 4201
+
+
+
+// Generating new Components, Directives, Pipes, Services
+
+// ng generate component myNewComponent
+
+// You can also use g for generate
+
+// ng g directive|pipe|service|class|guard|interface|enum|module
+
+
+
+// Serving Angular with Node/Express
+
+// Make sure the angular application is contained within the root folder of the express project, and cd into the agular app.
+
+// ng build --watch
+
+// This will create a "dist" folder by converting all the TS angular files into minified JavaScript and putting it there.
+// The '--watch' portion of the command launches an additional Node server which keeps watch over all of our Angular TypeScript files. 
+// If any TS files get modified, this server will automatically run 'ng build', so the distribution folder is always up to date.
+
+// Lastly, we need our Express project to define a static route to the newly created dist folder.
+
+app.use(express.static( __dirname + '/my-angular-app/dist' ));

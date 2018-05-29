@@ -15,21 +15,12 @@ export class HttpService {
 
 
   checkPkmnTypes(pkmn, type) {
-    var pkmnOfBothTypes = [];
-
     for (const i in pkmn.types) {
       if (pkmn.types[i].type.name === type) {
-        pkmnOfBothTypes.push(pkmn)
+        let firstType = pkmn.types[0].type.name
+        let secondType = pkmn.types[1].type.name
+        console.log(`This pokemon also shares the types ${firstType}/${secondType}: ${pkmn.name}!`)
       }
-    }
-
-    console.log(`${pkmnOfBothTypes.length} pokemon share the same types!`)
-
-    for (const i in pkmnOfBothTypes) {
-      let firstType = pkmnOfBothTypes[i].types[0].type.name
-      let secondType = pkmnOfBothTypes[i].types[1].type.name
-      let name = pkmnOfBothTypes[i].name
-      console.log(`This pokemon also shares the types ${firstType}/${secondType}: ${name}!`)
     }
   }
 
@@ -133,7 +124,7 @@ export class HttpService {
 
   getPokemon(){
   
-      let pokemon = this._http.get(`https://pokeapi.co/api/v2/pokemon/1/`);
+      let pokemon = this._http.get(`https://pokeapi.co/api/v2/pokemon/charizard/`);
       
       pokemon.subscribe(pkmn => {
         this.logPokemonType(pkmn) // I don't know how else to make sure these methods run in order X:

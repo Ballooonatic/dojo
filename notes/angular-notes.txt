@@ -215,3 +215,105 @@ export class HttpService {
     }
 }
 Run your project, open Inspect Element in your browser, and you should see your tasks being printed in the console!
+
+
+
+
+
+
+
+~~~~~~~~~~ Move the Control to the Component ~~~~~~~~~~
+
+
+Yeah so the whole time, components are really the ones that are supposed to be using the service, controlling when they are used,
+and storing the data on the client-side. So let's set that up so it can do that.
+
+
+
+First things first, we import OnInit form '@angular/core' and implement it. Also making sure to put the ngOnInit method in there
+as well. Not sure why we can't just use the constructor. Finally, we took the invocation of the getTasks() method out of the
+constructor of the service and put it here.
+
+
+~~~ app.components.ts ~~~
+
+import { Component, OnInit } from '@angular/core';
+
+export class AppComponent implements OnInit {
+    constructor(private _httpService: HttpService){}
+
+    // ngOnInit will run when the component is initialized, after the constructor method.
+
+    ngOnInit(){
+      this.getTasksFromService();
+    }
+    getTasksFromService(){
+      this._httpService.getTasks();
+    }
+}
+
+
+
+
+Let's put this down in the service so, when the component invokes it, it can be returned there
+
+
+~~~ http.service.ts ~~~
+
+getTasks() {
+    return this._http.get('/tasks')
+}
+
+
+
+
+Last thing, we can set tasks to be an array that will be taking all the data we get. And we move the logic we used to have
+right here to the component, so the component subscribes to the data like it should be. And then we can store it!
+
+
+~~~ app.component.ts ~~~
+
+export class AppComponent implements OnInit {
+
+    tasks = [];
+    
+    getTasksFromService(){
+
+       let observable = this._httpService.getTasks();
+       
+       observable.subscribe(data => {
+          console.log("Got our tasks!", data)
+
+          // In this example, the array of tasks is assigned to the key 'tasks' in the data object. 
+          // This may be different for you, depending on how you set up your Task API.
+
+          this.tasks = data['tasks'];
+       });
+    }
+}
+
+
+
+
+
+
+
+
+~~~~~~~~~~ DOM Manipulation and Directives ~~~~~~~~~~
+
+
+Any vars you need on the page need to be attributes in the component class and referenced in the html with {{double_brackets}}
+
+If you ever have variables you want to put in an attribute, it is done like so
+<input type="text" [value]="first_name" />
+
+
+
+
+Directives let you use JS code right in the page. ngIf hides and shows the element depending on the condition, and ngFor obviously
+repeats an element based on a loop.
+
+
+<p *ngIf="loggedIn"> You are logged in! </p>
+<p *ngFor="let snack of snacks"> {{snack}} </p>
+<p *ngIf="snacks.length < 3"> You need more snacks. </p>

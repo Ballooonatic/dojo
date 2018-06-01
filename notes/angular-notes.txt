@@ -317,3 +317,135 @@ repeats an element based on a loop.
 <p *ngIf="loggedIn"> You are logged in! </p>
 <p *ngFor="let snack of snacks"> {{snack}} </p>
 <p *ngIf="snacks.length < 3"> You need more snacks. </p>
+
+
+
+
+
+
+
+
+~~~~~~~~~~ Events ~~~~~~~~~~
+
+
+You put the event like an attribute in the tag, but in parentheses. The value of which is the function to run
+
+.../app/app.component.html
+
+<button (click)="onButtonClick()" >Click me!</button>
+<button (click)="onButtonClickParam(5)">Click me!</button>
+<button (click)="onButtonClickParams(5, 'hello')">Click me!</button>
+<button (click)="onButtonClickEvent($event)">Click me!</button>
+
+
+
+
+In your component class, define the functions you want.
+
+.../app/app.component.ts
+
+onButtonClick(): void { 
+    console.log(`Click event is working`);
+}
+onButtonClickParam(num: Number): void { 
+    console.log(`Click event is working with num param: ${num}`);
+}
+onButtonClickParams(num: Number, str: String): void { 
+    console.log(`Click event is working with num param: ${num} and str param: ${str}`);
+}
+onButtonClickEvent(event: any): void { 
+    console.log(`Click event is working with event: `, event);
+}
+
+
+
+
+
+
+
+
+~~~~~~~~~~ Forms ~~~~~~~~~~
+
+
+First things first, the app module file.
+import {FormsModule} form '@angular/forms', and include it in the @NgModule imports
+
+
+.../app/app.module.ts
+
+import { FormsModule } from '@angular/forms'; // <-- import FormsModule.
+@NgModule({ 
+	...
+	imports: [
+		BrowserModule,
+		FormsModule, // <-- register FormsModule with our app.
+	], 
+	...
+}) 
+export class AppModule { }
+
+
+
+
+Use Events to handle the form submission. We can't have it refreshing the page.
+
+We will be using a new attribute in our input tags: [(ngModel)]="" which will 2-way bind the value of the object from the class file
+to the input value. 2-way binding means that if the value is changed in the class file, we'll see that change in the html and vice
+versa. If the user changes the value of the input, the object in the class file will reflect the change in real time. The json pipe
+is very handy for seeing how the object in the class file changes in real time. Use interpolation to print the object to the html
+and include | json to see all the attributes.
+
+
+.../app/app.component.html
+
+<form (submit)="onSubmit()">
+    <!-- use the json pipe to see how newTask changes in real time -->
+    <p> {{ newTask | json }} </p>
+    <input type="text" name="newTask.title" [(ngModel)]="newTask.title" />
+    <input type="text" name="newTask.description" [(ngModel)]="newTask.description" />
+    <input type="submit" value="Create Task" />
+</form>
+
+
+
+
+
+In the component, we use a newTask property (attribute?) to store it temporarily while it is sent to the service.
+
+.../app/app.component.ts
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+
+export class AppComponent implements OnInit {
+  newTask: any;
+  constructor() { } 
+     
+  ngOnInit() {
+    this.newTask = { title: "", description: "" }
+  }
+     
+  onSubmit() {
+    // Code to send off the form data (this.newTask) to the Service
+    // ...
+    // Reset this.newTask to a new, clean object.
+    this.newTask = { title: "", description: "" }
+  }
+}
+
+
+
+
+And finally, the service posts the task to the database.
+
+
+.../app/http.service.ts
+
+addTask(newtask){
+    return this._http.post('/task', newtask)
+}

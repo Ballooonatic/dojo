@@ -8,36 +8,40 @@ You could build it by including only the necessary package.json files and config
 Also, the C.L.I. gives us a large version, full of libraries, we can easily remove libraries we are not going to use,
 so even though the initial app is full of resources, we can easily modify it to become a light weight framework.
 
-ng help
+    ng help
 
 
 
 
 Generating and serving an Angular project via a development server:
 
-ng new app
-cd app
-ng serve
+    ng new app
+    cd app
+    ng serve
 
 "app" will be the project name. you may say "ng serve app" to serve it up without having to cd up there
+
+if using routing, you'll want to use:
+
+    ng new app --routing
 
 
 Served on localhost://4200 by default. The following command can help that if you like.
 
-ng serve --host 0.0.0.0 --port 4201
+    ng serve --host 0.0.0.0 --port 4201
 
 
 
 
 Generating new Components, Directives, Pipes, Services
 
-ng generate component myNewComponent
+    ng generate component myNewComponent
 
 You can also use g for generate, and c for component
 
-ng g directive|pipe|service|class|guard|interface|enum|module
+    ng g directive|pipe|service|class|guard|interface|enum|module
 
-ng g d|p|s|c|g|i|e|m
+    ng g d|p|s|c|g|i|e|m
 
 
 
@@ -46,7 +50,7 @@ Serving Angular with Node/Express
 
 Make sure the angular application is contained within the root folder of the express project, and cd into the agular app.
 
-ng build --watch
+    ng build --watch
 
 This will create a "dist" folder by converting all the TS angular files into minified JavaScript and putting it there.
 The '--watch' portion of the command launches an additional Node server which keeps watch over all of our Angular TypeScript files. 
@@ -54,7 +58,7 @@ If any TS files get modified, this server will automatically run 'ng build', so 
 
 Lastly, we need our Express project to define a static route to the newly created dist folder.
 
-app.use(express.static( __dirname + '/my-angular-app/dist' ));
+    app.use(express.static( __dirname + '/my-angular-app/dist' ));
 
 
 
@@ -112,7 +116,7 @@ There are many other things we can do with Observables, but for now we will focu
 
 We'll set up our service by navigating to our Angular app in our terminal and running this line:
 
-ng g s http
+    ng g s http
 
 Here, we're naming our service 'http', but you may name it whatever you like. This gives us a file called http.service.ts.
 Open this file and you'll see that we are exporting a class called HttpService, which means another file can import it!
@@ -128,12 +132,12 @@ Provide the file path to your service file. Next, include HttpService in the arr
 
 .../app/app.module.ts
 
-import { HttpService } from './http.service';
-@NgModule({
-//    ...
-   providers: [HttpService],
-//    ...
-})
+    import { HttpService } from './http.service';
+    @NgModule({
+    //    ...
+    providers: [HttpService],
+    //    ...
+    })
 
 
 
@@ -146,15 +150,15 @@ Therefore, we'll need our project to import the HttpClientModule. Let's import i
 
 .../app/app.module.ts
 
-import { HttpClientModule } from '@angular/common/http';
-@NgModule({
-   ...
-   imports: [
-      BrowserModule,
-      HttpClientModule
-   ],
-   ...
-})
+    import { HttpClientModule } from '@angular/common/http';
+    @NgModule({
+    ...
+    imports: [
+        BrowserModule,
+        HttpClientModule
+    ],
+    ...
+    })
 
 
 
@@ -168,11 +172,11 @@ The underscore is conventional.
 
 .../app/http.service.ts
 
-import { HttpClient } from '@angular/common/http';
+    import { HttpClient } from '@angular/common/http';
 
-export class HttpService {
-    constructor(private _http: HttpClient){}
-}
+    export class HttpService {
+        constructor(private _http: HttpClient){}
+    }
 
 
 The other dependency injection we'll need is injecting the service into a component.
@@ -182,11 +186,11 @@ Import the service and make it an attribute in the class.
 
 .../app/app.component.ts
 
-import { HttpService } from './http.service';
-export class AppComponent {
-   title = 'app';
-   constructor(private _httpService: HttpService){}
-}
+    import { HttpService } from './http.service';
+    export class AppComponent {
+    title = 'app';
+    constructor(private _httpService: HttpService){}
+    }
 
 
 
@@ -199,21 +203,21 @@ For now, just have your service print the data that we get back.
 
 .../app/http.service.ts
 
-getTasks(){
-    // our http response is an Observable, store it in a variable
-    let tempObservable = this._http.get('/tasks');
-    // subscribe to the Observable and provide the code we would like to do with our data from the response
-    tempObservable.subscribe(data => console.log("Got our tasks!", data));
- }
-To invoke this function, let's call it in the constructor method of our service. This way, it will be the first thing our service will do.
+    getTasks(){
+        // our http response is an Observable, store it in a variable
+        let tempObservable = this._http.get('/tasks');
+        // subscribe to the Observable and provide the code we would like to do with our data from the response
+        tempObservable.subscribe(data => console.log("Got our tasks!", data));
+    }
+    To invoke this function, let's call it in the constructor method of our service. This way, it will be the first thing our service will do.
 
 .../app/http.service.ts
 
-export class HttpService {
-    constructor(private _http: HttpClient){
-        this.getTasks();
+    export class HttpService {
+        constructor(private _http: HttpClient){
+            this.getTasks();
+        }
     }
-}
 Run your project, open Inspect Element in your browser, and you should see your tasks being printed in the console!
 
 
@@ -237,20 +241,20 @@ constructor of the service and put it here.
 
 ~~~ app.components.ts ~~~
 
-import { Component, OnInit } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
 
-export class AppComponent implements OnInit {
-    constructor(private _httpService: HttpService){}
+    export class AppComponent implements OnInit {
+        constructor(private _httpService: HttpService){}
 
-    // ngOnInit will run when the component is initialized, after the constructor method.
+        // ngOnInit will run when the component is initialized, after the constructor method.
 
-    ngOnInit(){
-      this.getTasksFromService();
+        ngOnInit(){
+        this.getTasksFromService();
+        }
+        getTasksFromService(){
+        this._httpService.getTasks();
+        }
     }
-    getTasksFromService(){
-      this._httpService.getTasks();
-    }
-}
 
 
 
@@ -260,9 +264,9 @@ Let's put this down in the service so, when the component invokes it, it can be 
 
 ~~~ http.service.ts ~~~
 
-getTasks() {
-    return this._http.get('/tasks')
-}
+    getTasks() {
+        return this._http.get('/tasks')
+    }
 
 
 
@@ -273,24 +277,24 @@ right here to the component, so the component subscribes to the data like it sho
 
 ~~~ app.component.ts ~~~
 
-export class AppComponent implements OnInit {
+    export class AppComponent implements OnInit {
 
-    tasks = [];
-    
-    getTasksFromService(){
+        tasks = [];
+        
+        getTasksFromService(){
 
-       let observable = this._httpService.getTasks();
-       
-       observable.subscribe(data => {
-          console.log("Got our tasks!", data)
+        let observable = this._httpService.getTasks();
+        
+        observable.subscribe(data => {
+            console.log("Got our tasks!", data)
 
-          // In this example, the array of tasks is assigned to the key 'tasks' in the data object. 
-          // This may be different for you, depending on how you set up your Task API.
+            // In this example, the array of tasks is assigned to the key 'tasks' in the data object. 
+            // This may be different for you, depending on how you set up your Task API.
 
-          this.tasks = data['tasks'];
-       });
+            this.tasks = data['tasks'];
+        });
+        }
     }
-}
 
 
 
@@ -314,9 +318,9 @@ Directives let you use JS code right in the page. ngIf hides and shows the eleme
 repeats an element based on a loop.
 
 
-<p *ngIf="loggedIn"> You are logged in! </p>
-<p *ngFor="let snack of snacks"> {{snack}} </p>
-<p *ngIf="snacks.length < 3"> You need more snacks. </p>
+    <p *ngIf="loggedIn"> You are logged in! </p>
+    <p *ngFor="let snack of snacks"> {{snack}} </p>
+    <p *ngIf="snacks.length < 3"> You need more snacks. </p>
 
 
 
@@ -332,10 +336,10 @@ You put the event like an attribute in the tag, but in parentheses. The value of
 
 .../app/app.component.html
 
-<button (click)="onButtonClick()" >Click me!</button>
-<button (click)="onButtonClickParam(5)">Click me!</button>
-<button (click)="onButtonClickParams(5, 'hello')">Click me!</button>
-<button (click)="onButtonClickEvent($event)">Click me!</button>
+    <button (click)="onButtonClick()" >Click me!</button>
+    <button (click)="onButtonClickParam(5)">Click me!</button>
+    <button (click)="onButtonClickParams(5, 'hello')">Click me!</button>
+    <button (click)="onButtonClickEvent($event)">Click me!</button>
 
 
 
@@ -344,18 +348,18 @@ In your component class, define the functions you want.
 
 .../app/app.component.ts
 
-onButtonClick(): void { 
-    console.log(`Click event is working`);
-}
-onButtonClickParam(num: Number): void { 
-    console.log(`Click event is working with num param: ${num}`);
-}
-onButtonClickParams(num: Number, str: String): void { 
-    console.log(`Click event is working with num param: ${num} and str param: ${str}`);
-}
-onButtonClickEvent(event: any): void { 
-    console.log(`Click event is working with event: `, event);
-}
+    onButtonClick(): void { 
+        console.log(`Click event is working`);
+    }
+    onButtonClickParam(num: Number): void { 
+        console.log(`Click event is working with num param: ${num}`);
+    }
+    onButtonClickParams(num: Number, str: String): void { 
+        console.log(`Click event is working with num param: ${num} and str param: ${str}`);
+    }
+    onButtonClickEvent(event: any): void { 
+        console.log(`Click event is working with event: `, event);
+    }
 
 
 
@@ -373,16 +377,16 @@ import {FormsModule} form '@angular/forms', and include it in the @NgModule impo
 
 .../app/app.module.ts
 
-import { FormsModule } from '@angular/forms'; // <-- import FormsModule.
-@NgModule({ 
-	...
-	imports: [
-		BrowserModule,
-		FormsModule, // <-- register FormsModule with our app.
-	], 
-	...
-}) 
-export class AppModule { }
+    import { FormsModule } from '@angular/forms'; // <-- import FormsModule.
+    @NgModule({ 
+        ...
+        imports: [
+            BrowserModule,
+            FormsModule, // <-- register FormsModule with our app.
+        ], 
+        ...
+    }) 
+    export class AppModule { }
 
 
 
@@ -398,14 +402,13 @@ and include | json to see all the attributes.
 
 .../app/app.component.html
 
-<form (submit)="onSubmit()">
-    <!-- use the json pipe to see how newTask changes in real time -->
-    <p> {{ newTask | json }} </p>
-    <input type="text" name="newTask.title" [(ngModel)]="newTask.title" />
-    <input type="text" name="newTask.description" [(ngModel)]="newTask.description" />
-    <input type="submit" value="Create Task" />
-</form>
-
+    <form (submit)="onSubmit()">
+        <!-- use the json pipe to see how newTask changes in real time -->
+        <p> {{ newTask | json }} </p>
+        <input type="text" name="newTask.title" [(ngModel)]="newTask.title" />
+        <input type="text" name="newTask.description" [(ngModel)]="newTask.description" />
+        <input type="submit" value="Create Task" />
+    </form>
 
 
 
@@ -414,29 +417,29 @@ In the component, we use a newTask property (attribute?) to store it temporarily
 
 .../app/app.component.ts
 
-import { Component, OnInit } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
+    @Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
+    })
 
-export class AppComponent implements OnInit {
-  newTask: any;
-  constructor() { } 
-     
-  ngOnInit() {
-    this.newTask = { title: "", description: "" }
-  }
-     
-  onSubmit() {
-    // Code to send off the form data (this.newTask) to the Service
-    // ...
-    // Reset this.newTask to a new, clean object.
-    this.newTask = { title: "", description: "" }
-  }
-}
+    export class AppComponent implements OnInit {
+    newTask: any;
+    constructor() { } 
+        
+    ngOnInit() {
+        this.newTask = { title: "", description: "" }
+    }
+        
+    onSubmit() {
+        // Code to send off the form data (this.newTask) to the Service
+        // ...
+        // Reset this.newTask to a new, clean object.
+        this.newTask = { title: "", description: "" }
+    }
+    }
 
 
 
@@ -446,6 +449,128 @@ And finally, the service posts the task to the database.
 
 .../app/http.service.ts
 
-addTask(newtask){
-    return this._http.post('/task', newtask)
-}
+    addTask(newtask){
+        return this._http.post('/task', newtask)
+    }
+
+
+
+
+
+
+
+
+~~~~~~~~~~ Routing ~~~~~~~~~~
+
+
+First, start your app with routing files added, and generate whatever components needed
+
+    ng new app --routing
+
+    ng g c component-name
+
+Note: When generating new components, angular CLI registers it in the module for you c:
+
+
+
+
+Now, we define our rules and import them in our App through the AppModules file. Pay close attention to the buttons we've used for
+the routing links, the [routerLink] attribute has a unique patterned value, double quotes, then an array, and within the array each
+part of the url:
+
+
+    .../app/app.component.html - Redirecting via links
+
+    <button [routerLink]="['alpha']">Load Alpha</button>
+    <button [routerLink]="['beta']">Load Beta</button>
+    <router-outlet></router-outlet> 
+
+
+
+
+    .../app/app-routing.module.ts
+
+    import { AlphaComponent } from './alpha/alpha.component';
+    import { BetaComponent } from './beta/beta.component';
+    import { GammaComponent } from './gamma/gamma.component';
+    import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+    import { NgModule } from '@angular/core';
+    import { Routes, RouterModule } from '@angular/router';
+
+    const routes: Routes = [
+        { path: 'alpha',component: AlphaComponent },
+        { path: 'beta',component: BetaComponent },
+        // use a colon and parameter name to include a parameter in the url
+        { path: 'gamma/:id', component: GammaComponent },
+        { path: '', pathMatch: 'full', redirectTo: '/alpha' },
+        { path: '**', component: PageNotFoundComponent }
+    ];
+
+    @NgModule({
+        imports: [RouterModule.forRoot(routes)],
+        exports: [RouterModule]
+    })
+
+    export class AppRoutingModule { }
+
+
+
+
+    .../app/app.module.ts
+
+    import { BrowserModule } from '@angular/platform-browser';
+    import { NgModule } from '@angular/core';
+    import { AppComponent } from './app.component';
+    import { AppRoutingModule } from './app-routing.module';
+    import { AlphaComponent } from './alpha/alpha.component';
+    import { BetaComponent } from './beta/beta.component';
+    import { GammaComponent } from './gamma/gamma.component';
+
+    @NgModule({
+        declarations: [AppComponent, AlphaComponent, BetaComponent, GammaComponent],
+        imports: [BrowserModule, AppRoutingModule],
+        providers: [],
+        bootstrap: [AppComponent]
+    })
+
+    export class AppModule { }
+
+
+
+
+Note: incoming requests only go through Express routes, and are then passed to Angular by the app. They should both have different
+routing. Make sure you catch all routes with:
+
+    app.all('*', (res, req, next => {res.sendFile(__dirname + '/dist/app/index.html')}))
+
+
+
+
+If you want to route the user to a different url from within a component or service, you may use the Router module to redirect. To attain a parameter from the current URL, you may use the ActivatedRoute module, which allows us to generate an Observable we can subscribe to. Therefore, each time the url parameter changes, the callback is invoked.
+
+    .../app/app.component.ts
+    import { Component, OnInit } from '@angular/core';
+    import { ActivatedRoute, Params, Router } from '@angular/router';
+
+    @Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.css']
+    })
+
+    export class AppComponent implements OnInit {
+
+        constructor(
+            private _route: ActivatedRoute,
+            private _router: Router
+        ) {}
+
+        ngOnInit() {
+            this._route.params.subscribe((params: Params) => console.log(params['id']));
+        }
+
+        goHome() {
+            this._router.navigate(['/home']);
+        }
+    
+    }

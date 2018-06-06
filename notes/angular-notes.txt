@@ -574,3 +574,47 @@ If you want to route the user to a different url from within a component or serv
         }
     
     }
+
+
+
+
+
+
+
+
+~~~~~~~~~~ Nested Components ~~~~~~~~~~
+
+
+We've been doing it all along! *gasp*
+See your component's file? That 'selector' property can be used as an HTML tag.
+
+
+    .../alpha/alpha.component.ts
+    ...
+    @Component({
+        selector: 'app-alpha',
+        templateUrl: './alpha.component.html',
+        styleUrls: ['./alpha.component.css']
+    })
+    ...
+
+
+
+
+So in our root app component, we have the components like usual.
+
+    .../app/app.component.html
+    ...
+    <app-alpha></app-alpha>
+    ...
+
+
+
+
+And, if it pleases you, feel free to nest other components within as such.
+
+
+    .../alpha/alpha.component.html
+    ...
+    <app-beta></app-beta>
+    ...

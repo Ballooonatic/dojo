@@ -1,0 +1,12 @@
+<h1> Sell ShintoCoins </h1>
+
+<p> Current ShintoCoin value in USD: ${{ shintoCoin.value }} </p>
+
+<p> Current ShintoCoin balance: {{ shintoCoin.amount }} </p>
+
+<form (submit)="onSubmit(amt)">
+  <input type="number" name="sell_amt" [(ngModel)]="amt" placeholder="Amount">
+  <input type="submit" value="Sell">
+</form>
+
+<p *ngIf="message">{{ message }}</p>

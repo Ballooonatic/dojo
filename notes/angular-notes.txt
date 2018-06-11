@@ -546,7 +546,9 @@ routing. Make sure you catch all routes with:
 
 
 
-If you want to route the user to a different url from within a component or service, you may use the Router module to redirect. To attain a parameter from the current URL, you may use the ActivatedRoute module, which allows us to generate an Observable we can subscribe to. Therefore, each time the url parameter changes, the callback is invoked.
+If you want to route the user to a different url from within a component or service, you may use the Router module to redirect.
+To attain a parameter from the current URL, you may use the ActivatedRoute module, which allows us to generate an Observable we
+can subscribe to. Therefore, each time the url parameter changes, the callback is invoked.
 
     .../app/app.component.ts
     import { Component, OnInit } from '@angular/core';
@@ -618,3 +620,244 @@ And, if it pleases you, feel free to nest other components within as such.
     ...
     <app-beta></app-beta>
     ...
+
+
+
+
+
+
+
+
+~~~~~~~~~~ Styling ~~~~~~~~~~
+
+
+Beware: a components' css file only affects that component.
+
+
+
+
+[ngClass] ~ recommended styling.
+
+
+    .../app.component.ts - (TypeScript)
+    
+    export class AppComponent { 
+        switch: boolean = true;
+    }
+
+
+    .../app.component.css - (Styling)
+
+    .on { background-color: yellow }
+
+    
+    .../app.component.html - (Template)
+    
+    <span [ngClass]="{ 'on': switch }"> I should be yellow. </span>
+
+
+    <span [ngClass]="{ 'on': x === 2 }"> I should be yellow. </span>
+    Note: expressions that result to boolean can also be used.
+    
+
+
+
+[ngStyle] ~ inline styling. clutters up HTML; isn't recommended
+
+
+    .../app.component.ts
+
+    export class AppComponent { 
+        color = 'red';
+    }
+
+
+    .../app.component.html
+
+    <span [ngStyle]="{
+        'background-color': color,
+        'font-weight': 'bold'
+    }"> textgoeshere </span>
+
+
+
+
+
+
+
+
+~~~~~~~~~~ @Input() ~~~~~~~~~~
+
+
+This how we pass data from a parent component to children components. Let's say we have an array of tasks in the parent we want to
+carry over and remain completely synchronized in realtime with the child.
+
+
+    .../app/app.component.ts
+
+    import { ChildComponent } from './child/child.component';
+
+    ...
+
+    export class AppComponent {
+        tasks: Task[] = [ {...}, {...}, {...}, ... ]
+    }
+
+
+
+
+Whatever the 'selector' is set to in the @Component decorator(?) in the childs' component file, make sure that's a tag in the parent
+component html file like this. Also, input the tasks in it as an attribute like so. Apparently, brackets means data binding
+
+
+    .../app/app.component.html
+    ...
+    <app-child [myTasks]="tasks"> </app-child>
+    ...
+
+
+
+
+Now, don't forget to import that bad boy before you slap it in that class export and there you go.
+
+
+    .../child/child.component.ts
+    
+    import { Component, Input } from '@angular/core';
+    ...
+    export class ChildComponent {
+        @Input() myTasks: Task[];
+    }
+
+
+
+
+
+
+
+
+~~~~~~~~~~ @Output() ~~~~~~~~~~
+
+
+But what if we have to pass data from the child to the parent, or from the child, run a function in the parent? D:
+So let's establish a function in the parent to be run...
+
+
+    .../app/app.component.ts
+
+    export class AppComponent {
+        ...
+        dataFromChild(eventData){
+            console.log(eventData);
+        }
+        ...
+    }
+
+
+
+
+Now let's tell the child we want it run when this emitter emits its' emission
+
+
+    .../app/app.component.html
+
+    <app-child [myTasks]="tasks" (aTaskEventEmitter)="dataFromChild($event)"></app-child>
+
+
+
+
+Get ready for import heaven. We'll establish that the output to the parent will be a new Event, and then ... make sure we have the
+function that runs the emit triggered somewhere
+
+
+    .../child/child.component.ts
+
+    import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+    export class ChildComponent {
+
+        @Input() myTasks: Task[];
+
+        @Output() aTaskEventEmitter = new EventEmitter();
+
+        triggerEvent(event){
+            this.aTaskEventEmitter.emit(event);   //we can pass in any data type
+        }
+
+    }
+
+
+
+    .../child/child.component.html
+
+    <button (click)='triggerEvent($event)'></button>
+
+
+
+
+
+
+
+
+~~~~~~~~~~ Form Validation! ~~~~~~~~~~
+
+
+Angular's front-end validations allow error messages to display while a user is filling out a form before it is submitted.
+Front-end validations make a nicer user experience but do not protect your server - continue to implement backend validations.
+Angular's built-in validation (css) classes along with the simplicity of adding validations on each input makes forms EZ.
+Thx Angular
+
+
+In fact, it's SO easy it's almost automatic, working with HTML5's normal attributes. The #email thing creates a 'controller'
+object (this can also be put on the form tag) for us to check validation status, referred to as 'email' in this case. It's only
+available to us in this template file though. Oh, and the pattern is regex. You don't include the slashes
+
+
+<input 
+  type="text" 
+  name="email"
+  required 
+  minlength="4" 
+  maxlength="24"
+  pattern="\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b"
+  [(ngModel)]="user.email"
+  #email="ngModel"
+>
+
+{{ email.errors | json }}
+{{ email.valid | json }}
+
+
+Warning: Simply printing {{ email | json }} in your template file may cause an error, while {{ email }} won't give us enough
+information. This is due to how the 'email' object is structured and how the json pipe handles the object. Thankfully documentation
+presents us with the keys needed such as {{ email.errors | json }} and {{ email.valid | json }} which do not cause errors.
+
+
+
+
+Built-in Classes for Validation:
+
+Angular adds classes on the form and each input based on each input validation status. Meaning, as long as we have validations
+in input tags, we can style certain classes in our stylesheet (specific to that component), and angular will insert and remove
+these classes on each input as well as the form, as their status change.
+
+.ng-valid { }     # is set if the form control is valid.
+.ng-invalid { }   # is set if the form control is invalid.
+
+.ng-pristine { }  # is set if the form control has not been changed and pristine.
+.ng-dirty { }     # is set if the form control has been changed and dirty.
+
+.ng-touched { }   # is set if the form control has been visited.
+.ng-untouched { } # is set if the form control has not been visited.
+
+
+
+
+For big-ass forms, you'll want to capture the whole thing for validation status. It's done like so
+
+
+<form
+    (submit)="onSubmit()"
+    #formData='ngForm'
+>
+</form>

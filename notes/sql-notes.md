@@ -8,10 +8,10 @@ Use homebrew to install MySQL.
 Use homebrew to start your MySQL Server as a  "service", meaning it will run in the background and allow connections.
 `brew services start mysql`
 
-Before this next step, make sure you go into Settings on your mac, to MySQL, and click Initialize Database.
-
 Now with MySQL installed, you have access to some new command line tools. Run the following command to set the MySQL root user's password to "root".
 `mysqladmin -u root password "root"`
+
+This gets you in the CLI.
 `mysql -u root -p`
 
 ## Query Syntax

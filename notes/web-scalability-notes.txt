@@ -1,5 +1,0 @@
-~~~ Dimensionality of Scaling ~~~
-
-Scaling vertically ~ increasing the resources and capabilities of a single server. I personally also like to think of it as optimizing a single server so that they use the resources and power to their full extent. 
-
-Scaling horizontally ~ to spread the load across multiple nodes. This is harder than it sounds because you have to gracefully allow each server or node to compliment the other. Scaling horizontally, done right, will allow you to scale when users are growing exponentially. 

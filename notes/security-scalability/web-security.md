@@ -1,0 +1,86 @@
+# Web Security
+
+## SQL Injection
+
+A SQL Injection is an exploit that (usually) utilizes an application’s HTML inputs, and maliciously attempts to enter ‘insert’ or ‘inject’ a SQL query that will trick your database in doing something other than the intended purpose. When successful, this could allow the user to modify database data (insert/update/delete), potentially allowing login access, altering admin access, truncating a table (deleting everything in it) and even worse - dropping the schema (losing all data and database structure, this is considered ‘Game Over’).
+
+It’s very important to understand how SQL Injection works so we ensure your applications are built in such way that mitigates the possibility of a SQL Injection attack. Mitigates because there is no guarantee. SQL Injection is one of the most popular methods of compromising an application.
+
+So for example you have a login form and you enter these credentials.
+
+Username: [ someone@somewhere.com ]
+Password: [ password’ OR ‘1’ = ‘1 ]
+
+Those single quotes are important, because when your creds go back to the database to be queried, THIS is what will be run.
+
+`SELECT * FROM users WHERE username = ‘someone@somewhere.com’‘ AND password = ‘password’ OR ‘1’ = ‘1’;`
+
+### Mitigation
+
+Thankfully, there are quite a few ways to defend against this sort of attack. The most simple method is to use a framework. Most all frameworks have built-in features to avoid this kind of attack.
+
+Wait, what exactly does a framework have that protects against this you ask? In PHP it’s called mysqli_real_escape_string, real… because they got it right the second time… Ouch. Simply, it's a function built in most languages (such as PHP in this case) that take the inserted statement from the login forum and adds escape characters in front of each potentially harmful character, so SQL knows to escape those characters all together. Here is an example of before and after running mysqli_real_escape_string:
+
+Before: `$password` => `password’ OR ‘1’ = ‘1`
+
+After: `mysqli_real_escape_string($password)` => `password\’ OR \‘1\’ = \‘1`
+
+`SELECT * FROM users WHERE username = ‘someone@somewhere.com’ AND password = ‘password\’ OR \‘1\’ = \‘1’;`
+
+Keep in mind, we don’t need mysqli_real_escape_string() function (PHP) or any other form to do this variable sanitization for us. If we choose to, we could parse through the inserted inputs from the client (every single one) and find all potentially hazardous characters (such as: n, r, \, ', and x1a) and insert an escape character before them - to escape them. In the general scheme of things, we would definitely use the function that has been tested over and over again with much success. However, it’s important to understand exactly how the SQL injection works, and how the defensive mechanism works against it, so if needed, we could create or alter our own version to work best for our own projects.
+
+## HTML Manipulation
+
+HTML Form Manipulation is taking advantage of the browser developer tools to alter/manipulate the HTML content. We are able to alter HTML, CSS and with a little extra work, even javascript files that have been served to us by the web server. With this ability in mind, a malicious user is able to alter the forms (HTML manipulation), and post different content (unintended content). If the user knows the server routes, and key/value pairs that are expected on (for example) a delete form, he can alter them to delete different things.
+
+### Inspect Element
+
+Simple and most common, using the inspect element feature of most browsers (chrome in this case), we are able to review the DOM, as well as alter the contents of our DOM. If we alter the form’s name or value attributes, we will be able to alter what we send to the server with that POST request.
+
+For example, we're logged in as a user. We Inspect Element and see the comment form has some inputs with the type `hidden`. One of them says `user_id=1`. So, if we change this to `user_id=2` then it allows us, _in theory_, to post as someone else.
+
+### Extensions
+
+Most of the browsers offer downloadable extensions which allow you to prepare your own post requests. The request can be entirely customized, you will be able to define your URL, and name/value pair. Simple, and effective for testing during development, if used for malicious purposes, it becomes a method of attack.
+
+### Scripts
+
+Similar to the extensions concept, with a twist of XSS, we are able to write a script and inject it into a website, allowing us to create our own form located on a website.
+
+### Mitigations
+
+#### Using Session
+
+Avoid printing hidden inputs that are not required. For example, we (the logged in user in this case) don’t need to print our id on the form, we can simply store it in session and use the session information (which is unique to each user on our site).
+
+#### Authentication Tokens
+
+An authentication token is a randomized string, generated by your back-end code every time someone loads a page with a form. This authentication key is generated to be used only 1 time per page load and even has an expiration date/time. Adding authentication token to your forms, you can mitigate the chance of some other source sending your server malicious POST requests, since the post content would need to match the generated authentication token with the posts token.
+
+## Cross Site Scripting
+
+Cross-Site Scripting (XSS) is simply the action of injecting a script on a website, in a manner which will be read by future users that visit the page and execute some sort of malicious script. These scripts can be very dangerous to unexpecting users, and can jeopardize future user’s personal data.
+
+If a website is vulnerable to XSS, the malicious user will inject his scripts through a website’s input box (there are more methods, this is a simple method). These inputs will take the data and print the values on the website, similar to posting a comment on Facebook. Everything is okay if the input content is just words and numbers. However, if the user decided to type in a script such as  `<script>alert(‘hey’)</script>`, the website takes this string and prints it to the response of each user to view, so when we go to this website, we will see his post of `<script>alert(‘hey’)</script>`. However, our browser always looks for tags such as `<h1>` or `<span>`, `<div>`, even `<script>` and makes sense of them, (i.e. `<h1>` will cause text to look bold and larger), the difference is that the script tag is not visible to the user, (it’s only visible to the source of the website if we - view source - on the page). Therefore the script is hidden from our view and being JavaScript, it will execute its content - in this case alerting us with a window of ‘hey’. This may not seem too malicious, perhaps just funny, but let's see what else this method can cause for our users.
+
+### Mitigation_
+
+The defense depends on the input method. Let’s clear up the most common issue, input tags.
+
+`<input>` Tag: [htmlspecialchars()](http://php.net/htmlspecialchars) Simple, and effective, a function that will escape characters for you to reduce chances of a script injection. (PHP, this function can be created by you, or you can use similar functions in different languages) Let’s try this.
+
+Keep in mind, to fully understand how to defend against it, we need to be aware of what we are defending against. The characters “<” and “>” are read by a browser as tags, for example `<input>`, therefore we need to sanitize the string so the “<” and “>” tags are replaced by their ASCII value clones. Ascii characters are written out strings that will be converted to symbols, letters, and numbers by the browser. For example, the ASCII value that will print “<” is < or < both are one and the same, and your browser will replace the characters “<” as the symbol “<”. So it does not mistakenly open a tag when a tag was not intended. Therefore, a function such as the one mentioned here, will look through a string, and replace all ‘potentially malicious’ characters from their characters to the ASCII values, removing all potentials for an HTML/script injection.
+
+More information about ASCII values: [lizzink](http://www.ascii.cl/htmlcodes.htm)
+
+## Cross Site Request Forgery
+
+Cross-Site Request Forgery (CSRF) is an attack which may cause an unexpected user to send a post request to a website which was not intending for, causing the user (for example) to potentially transfer funds from his account to someone else. This method may require a combination of other methods to be successful, however it can be very dangerous and malicious.
+
+There are many methods of creating CSRF, a common method is to trick the user into redirecting to a fake website, looking just like the website they intended on visiting, and when that user clicks on a button (or perhaps just even visits that page), that button could be posting a form, to one or many banks/websites, with patterns to mimic a real transfer funds request, and because you may happen to be already logged into that bank’s website, you have an open session with that website and the transfer may be successful
+
+### _Mitigation
+
+#### Authentication Token
+
+An authentication token is a randomized string, generated by your back-end code every time someone loads a page with a form. This authentication key is generated to be used only 1 time per page load and even has an expiration date/time. Adding authentication token to your forms, you can mitigate the chance of some other source sending your server malicious POST requests, since the post content would need to match the generated authentication token with the posts token.

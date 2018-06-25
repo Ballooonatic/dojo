@@ -38,3 +38,7 @@ function rFac(n) {
 ### Stack
 
 A stack is a list of elements that are accessible only from one end of the list, which is called the top. The stack is known as a last-in, first out (LIFO) data structure. You can think of it as a stack of trays. When people come to pick the tray up, they pick the tray that is all the way at the top, which also happens to be the last one placed. Another example is a function stack. Every time a function gets called before returning, a new stack of memory gets placed on top of the previous stack. Then the last called function returns first and so on. "Arrays" in JavaScript are also stacks because it .push and .pop methods which are associated with the stack data structure.
+
+### Queue
+
+A queue is a list of elements that are accessible only from the front of the list which is called the front. The queue is known as a first-in, first out (FIFO) data structure. You can think of a queue as the drive-through at [insert business here]. The first car there gets served first and leaves. First in first out. Seems fair. Although .enqueue, and .queue methods are often associated with queues, JavaScript "Arrays" are also queues because it implements the .shift and .unshift() methods.

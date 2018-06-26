@@ -17,8 +17,7 @@ var Stacc = (function(){
     }
     return Stacc;
 
-  })();
-//   module.exports = Stacc;
+})();
 
 var array = new Stacc();
 

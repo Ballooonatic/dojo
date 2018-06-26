@@ -21,7 +21,7 @@ var Queue = (function(){
         }
     }
     return Queue;
-  })();
+})();
 
 var queue = new Queue();
 queue.enqueue("Bird");

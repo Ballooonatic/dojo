@@ -46,3 +46,33 @@ A queue is a list of elements that are accessible only from the front of the lis
 ### Singly Linked List
 
 Remember that an Array is a fixed length of contiguous memory. What if you have more data than you predicted? You can't go outside the bounds of the initial declaration because the computer might have already used the bits next to the Array for something else. What you would have to do is declare a new Array, make it larger this time and store the information. This makes Arrays a pain to use when you don't know how much you are going to store. Linked List is a solution to this problem, although it has some downsides as well. Think of Linked List as a list of objects. Each object has one job, to remember one other person that is after them. This way, all objects are linked once you start from the very first object. You can ask the first object where the next object is and so on. Because Linked Lists aren't the contiguous chunk of memory, we can't find elements as fast as an Array with an index. However, we don't have to worry about predicting exactly how much data that we need.
+
+### Binary Search Tree
+
+A binary tree is a tree of nodes, where the root node has no parent node and each node has no more than 2 child nodes. This makes it hierarchical, and therefore better for representing certain structures like a family tree. Although, people can choose to have more children, so the best tree to use for that would not be a binary one.
+
+Binary Search Trees are sorted, in such a way that the left child's value must be less than the parent node, and the right child's greater. This lets us find values very quickly. Here's a slightly disgusting example of one.
+
+     6
+    / \
+   2   8
+ / |   | \
+1  4   7  10
+  /
+3
+
+#### Traversal
+
+Let's say we want to visit all the nodes in a certain order. We have many choices, but conventionally we want to go from left to right. I will refer to the root node as `Root`, the left subtree as `Left`, and the right subtree as `Right`
+
+##### PreOrder
+
+Root -> Left -> Right
+
+##### InOrder
+
+Left -> Root -> Right
+
+##### PostOrder
+
+Left -> Right -> Root

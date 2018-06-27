@@ -23,6 +23,8 @@ var Queue = (function(){
     return Queue;
 })();
 
+module.exports = Queue;
+
 var queue = new Queue();
 queue.enqueue("Bird");
 queue.enqueue("Magic");

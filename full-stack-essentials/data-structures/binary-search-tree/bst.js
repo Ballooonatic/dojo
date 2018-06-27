@@ -72,16 +72,16 @@ var BST = (function(){
 
     // ~~~~~~~~~~ Assignment II ~~~~~~~~~~
 
-    BST.prototype.getMin = function() {
-        let cur = this.root
+    BST.prototype.getMin = function(node) {
+        let cur = node
         while (cur.left) {
             cur = cur.left
         }
         return cur
     }
 
-    BST.prototype.getMax = function() {
-        let cur = this.root
+    BST.prototype.getMax = function(node) {
+        let cur = node
         while (cur.right) {
             cur = cur.right
         }
@@ -99,6 +99,51 @@ var BST = (function(){
         return -1;
     }
 
+    // ~~~~~~~~~~ Assignment III ~~~~~~~~~~
+
+    BST.prototype.erase = function(root, node) {
+        if (!root) return root;
+        else {
+            if      (node < root.data) root.left = this.erase(root.left, node);
+            else if (node > root.data) root.right = this.erase(root.right, node);
+            else {
+                if (!root.left && !root.right) {
+                    delete root;
+                    root = null;
+                }
+                else if (!root.left) {
+                    let temp = root
+                    root = root.right
+                    delete temp;
+                }
+                else if (!root.right) {
+                    let temp = root
+                    root = root.left
+                    delete temp;
+                }
+                else {
+                    let temp = this.getMin(root.right)
+                    root.data = temp.data
+                    root.right = this.erase(root.right, temp.data)
+                }
+            }
+        }
+        return root;
+    }
+
+    BST.prototype.levelOrder = function () {
+        if (this.root === null) return null;
+        else {
+            var Q = [this.root];
+            while (Q.length > 0) {
+                cur = Q[0];
+                console.log(cur.data);
+                if (cur.left) Q.push(cur.left);
+                if (cur.right) Q.push(cur.right);
+                Q.shift();
+            }
+        }
+    }
 
     return BST;
 })();

@@ -69,10 +69,16 @@ Let's say we want to visit all the nodes in a certain order. We have many choice
 
 Root -> Left -> Right
 
+6 2 1 4 3 8 7 10
+
 ##### InOrder
 
 Left -> Root -> Right
 
+1 2 3 4 6 7 8 10
+
 ##### PostOrder
 
 Left -> Right -> Root
+
+1 3 4 2 7 10 8 6

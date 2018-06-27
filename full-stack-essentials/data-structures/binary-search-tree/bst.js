@@ -6,7 +6,8 @@ var BST = (function(){
         this.root = null;
     };
 
-    
+    // ~~~~~~~~~~ Assignment I ~~~~~~~~~~
+
     BST.prototype.insert = function(data) {
 
         // If there's nothing in the BST, this insert will be the first Node
@@ -68,6 +69,35 @@ var BST = (function(){
         this.postOrder(node.right)
         console.log(node.data);
     };
+
+    // ~~~~~~~~~~ Assignment II ~~~~~~~~~~
+
+    BST.prototype.getMin = function() {
+        let cur = this.root
+        while (cur.left) {
+            cur = cur.left
+        }
+        return cur
+    }
+
+    BST.prototype.getMax = function() {
+        let cur = this.root
+        while (cur.right) {
+            cur = cur.right
+        }
+        return cur
+    }
+
+    BST.prototype.fimd = function(node) {
+        if (this.root.data === node) { return this.root }
+        let cur = this.root
+        while (cur) {
+            if (node < cur.data) { cur = cur.left } 
+            if (node > cur.data) { cur = cur.right }
+            if (node === cur.data) { return cur }
+        }
+        return -1;
+    }
 
 
     return BST;

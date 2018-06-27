@@ -17,6 +17,12 @@ console.log("\n\nPRE ORDER");
 bst.preOrder(bst.root);
 console.log("\n\nPOST ORDER");
 bst.postOrder(bst.root);
+console.log("\n\nMINIMUM VALUE");
+console.log(bst.getMin());
+console.log("\n\nMAXIMUM VALUE");
+console.log(bst.getMax());
+console.log("\n\nFind node with data 3");
+console.log(bst.fimd(3).data);
 
 /*
         23

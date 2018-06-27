@@ -88,3 +88,7 @@ Left -> Right -> Root
 Print each node from left to right, go down a level, repeat.
 
 6 2 8 1 4 7 10 3
+
+### Hash Table
+
+Hash Table also further improves on the Linked List. Hash Table is a higher level data structure: it uses other data structures to form another data structure. Hash table uses an array that will act as specific keys to put in new objects. Every time an object wants to be inserted or searched, it first goes through a hashing function which will determine its location in the Array. By using a Hash Table we can cut down a super long Linked List into smaller Linked List. With a hashing function, we would know to go to which Linked List to find the particular value or insert a particular value. If we had an Array of 26 possible spots, we can technically break down a single Linked List into 26 smaller ones. Our goal should be to find a hashing function that will normalize the long Linked List out evenly across the available spots in the Array.

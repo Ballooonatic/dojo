@@ -82,3 +82,9 @@ Left -> Root -> Right
 Left -> Right -> Root
 
 1 3 4 2 7 10 8 6
+
+##### Level Order
+
+Print each node from left to right, go down a level, repeat.
+
+6 2 8 1 4 7 10 3

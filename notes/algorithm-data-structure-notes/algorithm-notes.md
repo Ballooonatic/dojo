@@ -92,3 +92,22 @@ Print each node from left to right, go down a level, repeat.
 ### Hash Table
 
 Hash Table also further improves on the Linked List. Hash Table is a higher level data structure: it uses other data structures to form another data structure. Hash table uses an array that will act as specific keys to put in new objects. Every time an object wants to be inserted or searched, it first goes through a hashing function which will determine its location in the Array. By using a Hash Table we can cut down a super long Linked List into smaller Linked List. With a hashing function, we would know to go to which Linked List to find the particular value or insert a particular value. If we had an Array of 26 possible spots, we can technically break down a single Linked List into 26 smaller ones. Our goal should be to find a hashing function that will normalize the long Linked List out evenly across the available spots in the Array.
+
+### Trie
+
+All they gave me was a gif.
+
+A
+N T
+D Y
+R
+E
+W
+
+It's like a linked list, but each node gets a character of the word and the value is stored at the end of each word*. So at W for Andrew, T for Ant, and Y for Andy. Far as I know, they're only used like this, probably for use in dictionaries.
+
+*In our assignment, each character had a value entry too.
+
+### Dictionary
+
+Basically a hash table full of tries. Allows for super quick lookup of complete words and their definitions, for example. I don't know what other applications there could be for this.
